@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+.env
+.env.local
+.env.*.local
+
+.DS_Store
+*.log
+npm-debug.log*
+
+# Photography originals never live in git — see IMPLEMENTATION_PLAN.md §6.3
+/assets/originals/
+
+# Generated copy of the reference library. The source of truth is
+# docs/photo-references/; run `npm run sync:refs` (or any dev/build) to
+# recreate this. Keeps ~7 MB of placeholder binaries out of the history.
+/apps/web/public/ref/

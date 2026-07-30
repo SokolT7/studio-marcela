@@ -1,0 +1,29 @@
+{
+  "name": "studio-marcela",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Studio Marcela — website, booking engine and staff dashboard",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspace=@sm/web",
+    "test": "npm run test --workspaces --if-present",
+    "test:coverage": "npm run test:coverage --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "sync:refs": "node scripts/sync-reference-images.mjs",
+    "predev": "npm run sync:refs",
+    "prebuild": "npm run sync:refs"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "@vitest/coverage-v8": "^2.1.8"
+  }
+}

@@ -1,0 +1,910 @@
+// Studio Marcela — database schema
+// Implements IMPLEMENTATION_PLAN.md §11.
+//
+// Conventions:
+//   · Every table soft-deletes via `deletedAt`. Appointment history is never
+//     destroyed — it is referenced by accounting and by client records.
+//   · All instants are stored UTC. Display conversion happens at the edge.
+//   · Money is stored in integer cents. Never floats.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────────────────── enums
+
+enum Role {
+  OWNER
+  MANAGER
+  STYLIST
+  RECEPTION
+  ACCOUNTANT
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACTOR
+  APPRENTICE
+}
+
+enum StylistTier {
+  STANDARD
+  SENIOR
+  MASTER
+}
+
+enum SegmentType {
+  ACTIVE
+  PASSIVE
+}
+
+enum SkillLevel {
+  NOT_TRAINED
+  IN_TRAINING
+  CERTIFIED
+  TRAINER
+}
+
+enum WeekParity {
+  EVERY
+  ODD
+  EVEN
+}
+
+enum HairLength {
+  KRATKA
+  POLUDUGA
+  DUGA
+  EXTRA_DUGA
+  EKSTENZIJE
+}
+
+enum AbsenceType {
+  ANNUAL
+  SICK
+  UNPAID
+  TRAINING
+  PARENTAL
+  PUBLIC_HOLIDAY
+  OTHER
+}
+
+enum AbsenceStatus {
+  REQUESTED
+  APPROVED
+  DECLINED
+  CANCELLED
+}
+
+enum HalfDay {
+  AM
+  PM
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum DepositStatus {
+  NONE
+  PENDING
+  PAID
+  REFUNDED
+  FORFEITED
+}
+
+enum BookingSource {
+  ONLINE
+  PHONE
+  WALK_IN
+  DASHBOARD
+  GROUP
+}
+
+enum GroupType {
+  WEDDING
+  CORPORATE
+  CELEBRATION
+}
+
+enum EnquiryType {
+  GROUP
+  BRIDAL
+  MOBILE
+  CAREERS
+  GENERAL
+}
+
+enum EnquiryStatus {
+  NEW
+  IN_PROGRESS
+  QUOTED
+  WON
+  LOST
+}
+
+enum WaitlistStatus {
+  ACTIVE
+  NOTIFIED
+  CONVERTED
+  EXPIRED
+  CANCELLED
+}
+
+enum TimePreference {
+  MORNING
+  AFTERNOON
+  EVENING
+}
+
+enum ApprovalStatus {
+  SUBMITTED
+  APPROVED
+  REJECTED
+}
+
+enum Channel {
+  EMAIL
+  SMS
+}
+
+enum ConsentType {
+  MARKETING_EMAIL
+  MARKETING_SMS
+  PHOTO
+  DATA_PROCESSING
+}
+
+enum ResourceType {
+  BASIN
+  COLOUR_BAR
+  AIRTOUCH_DRYER
+  STEAMER
+  CHAIR
+}
+
+// ─────────────────────────────────────────────── organisation
+
+model Location {
+  id             String    @id @default(uuid())
+  slug           String    @unique
+  name           String
+  /// District name used in H1s and location cards — never "Studio Marcela IV".
+  displayName    String
+  addressStreet  String
+  addressCity    String
+  addressPostal  String
+  addressCountry String    @default("HR")
+  latitude       Decimal   @db.Decimal(10, 7)
+  longitude      Decimal   @db.Decimal(10, 7)
+  phone          String
+  whatsapp       String?
+  email          String?
+  timezone       String    @default("Europe/Zagreb")
+  googlePlaceId  String?
+  floorNote      String?
+  parkingNote    String?
+  transportNote  String?
+  isActive       Boolean   @default(true)
+  isHotelSalon   Boolean   @default(false)
+  primaryLocale  String    @default("hr")
+  sortOrder      Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  openingHours     OpeningHours[]
+  hoursExceptions  OpeningHoursException[]
+  resources        Resource[]
+  userLocations    UserLocation[]
+  homeUsers        User[]                  @relation("HomeLocation")
+  workPatterns     WorkPattern[]
+  workOverrides    WorkOverride[]
+  timeBlocks       TimeBlock[]
+  servicePrices    ServiceLocationPrice[]
+  appointments     Appointment[]
+  groupBookings    GroupBooking[]
+  waitlist         Waitlist[]
+  reviews          Review[]
+  galleryImages    GalleryImage[]
+  preferredClients Client[]                @relation("PreferredLocation")
+
+  @@index([slug])
+  @@index([isActive, sortOrder])
+}
+
+model OpeningHours {
+  id         String   @id @default(uuid())
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+  dayOfWeek  Int // 0 = Sunday
+  opensAt    String // "09:00"
+  closesAt   String
+  isClosed   Boolean  @default(false)
+
+  @@unique([locationId, dayOfWeek])
+}
+
+model OpeningHoursException {
+  id         String   @id @default(uuid())
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+  date       DateTime @db.Date
+  isClosed   Boolean
+  opensAt    String?
+  closesAt   String?
+  reason     String?
+
+  @@unique([locationId, date])
+}
+
+/// Contended equipment — basins, the colour bar, the AirTouch dryer.
+model Resource {
+  id         String       @id @default(uuid())
+  locationId String
+  location   Location     @relation(fields: [locationId], references: [id])
+  name       String
+  type       ResourceType
+  quantity   Int          @default(1)
+
+  @@index([locationId, type])
+}
+
+// ─────────────────────────────────────────────────────── people
+
+model User {
+  id                   String         @id @default(uuid())
+  email                String         @unique
+  phone                String?
+  passwordHash         String?
+  role                 Role
+  firstName            String
+  lastName             String
+  publicSlug           String?        @unique
+  /// Staff choose whether their surname is published. See plan §7.4.
+  publicFirstNameOnly  Boolean        @default(true)
+  displayTitle         String?
+  bioHr                String?
+  bioEn                String?
+  photoUrl             String?
+  languages            String[]       @default([])
+  employmentType       EmploymentType @default(FULL_TIME)
+  startDate            DateTime       @db.Date
+  endDate              DateTime?      @db.Date
+  homeLocationId       String
+  homeLocation         Location       @relation("HomeLocation", fields: [homeLocationId], references: [id])
+  tier                 StylistTier    @default(STANDARD)
+  isBookable           Boolean        @default(true)
+  mobileEnabled        Boolean        @default(false)
+  /// Concurrent-client cap for processing-time overlap. 1 disables it.
+  maxConcurrentClients Int            @default(2)
+  allowOverlap         Boolean        @default(true)
+  isPublic             Boolean        @default(false)
+  twoFactorEnabled     Boolean        @default(false)
+  twoFactorSecret      String?
+  uiLocale             String         @default("hr")
+  isActive             Boolean        @default(true)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  deletedAt            DateTime?
+
+  locations          UserLocation[]
+  workPatterns       WorkPattern[]
+  workOverrides      WorkOverride[]
+  absences           Absence[]          @relation("AbsenceUser")
+  requestedAbsences  Absence[]          @relation("AbsenceRequester")
+  reviewedAbsences   Absence[]          @relation("AbsenceReviewer")
+  leaveEntitlements  LeaveEntitlement[]
+  timeBlocks         TimeBlock[]
+  skills             StylistSkill[]
+  appointments       Appointment[]
+  colourFormulas     ColourFormula[]
+  submittedImages    GalleryImage[]     @relation("GallerySubmitter")
+  approvedImages     GalleryImage[]     @relation("GalleryApprover")
+  auditLogs          AuditLog[]
+  assignedEnquiries  Enquiry[]
+  reviews            Review[]
+  preferredByClients Client[]           @relation("PreferredStylist")
+  waitlistPreferred  Waitlist[]
+
+  @@index([homeLocationId, isActive])
+  @@index([publicSlug])
+}
+
+model UserLocation {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+  isPrimary  Boolean  @default(false)
+
+  @@unique([userId, locationId])
+}
+
+// ─────────────────────────────────────────────── working time
+
+/// Recurring weekly rota. Effective-dated so changing hours from a future date
+/// never rewrites history or disturbs appointments already booked.
+model WorkPattern {
+  id            String     @id @default(uuid())
+  userId        String
+  user          User       @relation(fields: [userId], references: [id])
+  locationId    String
+  location      Location   @relation(fields: [locationId], references: [id])
+  dayOfWeek     Int
+  startsAt      String
+  endsAt        String
+  weekParity    WeekParity @default(EVERY)
+  effectiveFrom DateTime   @db.Date
+  effectiveTo   DateTime?  @db.Date
+  createdAt     DateTime   @default(now())
+
+  @@index([userId, dayOfWeek, effectiveFrom])
+}
+
+/// A date-specific instruction that beats the recurring pattern.
+model WorkOverride {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  locationId String?
+  location   Location? @relation(fields: [locationId], references: [id])
+  date       DateTime  @db.Date
+  isWorking  Boolean
+  startsAt   String?
+  endsAt     String?
+  reason     String?
+
+  @@unique([userId, date])
+}
+
+model Absence {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation("AbsenceUser", fields: [userId], references: [id])
+  type          AbsenceType
+  startDate     DateTime      @db.Date
+  endDate       DateTime      @db.Date
+  isHalfDay     Boolean       @default(false)
+  halfDayPeriod HalfDay?
+  status        AbsenceStatus @default(REQUESTED)
+  requestedById String
+  requestedBy   User          @relation("AbsenceRequester", fields: [requestedById], references: [id])
+  reviewedById  String?
+  reviewedBy    User?         @relation("AbsenceReviewer", fields: [reviewedById], references: [id])
+  reviewedAt    DateTime?
+  reviewNote    String?
+  note          String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([userId, startDate, endDate])
+  @@index([status])
+}
+
+model LeaveEntitlement {
+  id              String  @id @default(uuid())
+  userId          String
+  user            User    @relation(fields: [userId], references: [id])
+  year            Int
+  /// Croatian statutory minimum is four weeks; client policy applies on top.
+  entitledDays    Decimal @db.Decimal(4, 1)
+  carriedOverDays Decimal @default(0) @db.Decimal(4, 1)
+
+  @@unique([userId, year])
+}
+
+/// Lunch, admin, training, personal — anything blocked inside a working day.
+model TimeBlock {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  locationId     String
+  location       Location @relation(fields: [locationId], references: [id])
+  startsAt       DateTime
+  endsAt         DateTime
+  reason         String
+  isRecurring    Boolean  @default(false)
+  recurrenceRule String? // RFC 5545 RRULE
+
+  @@index([userId, startsAt])
+}
+
+// ──────────────────────────────────────────────────── catalogue
+
+model ServiceCategory {
+  id        String    @id @default(uuid())
+  slug      String    @unique
+  nameHr    String
+  nameEn    String
+  sortOrder Int       @default(0)
+  services  Service[]
+}
+
+model Service {
+  id                 String          @id @default(uuid())
+  slug               String          @unique
+  categoryId         String
+  category           ServiceCategory @relation(fields: [categoryId], references: [id])
+  nameHr             String
+  nameEn             String
+  descriptionHr      String?
+  descriptionEn      String?
+  /// "Što uključuje" — shown before the client commits.
+  includesHr         String[]        @default([])
+  includesEn         String[]        @default([])
+  basePriceCents     Int
+  baseDurationMin    Int
+  bufferBeforeMin    Int             @default(0)
+  bufferAfterMin     Int             @default(0)
+  minimumNoticeHrs   Int             @default(2)
+  depositAmountCents Int?
+  depositPercent     Int?
+  requiresPatchTest  Boolean         @default(false)
+  requiresConsult    Boolean         @default(false)
+  /// False for bridal — those never share a stylist.
+  allowOverlap       Boolean         @default(true)
+  isPackage          Boolean         @default(false)
+  packageServiceIds  String[]        @default([])
+  isBookableOnline   Boolean         @default(true)
+  isActive           Boolean         @default(true)
+  sortOrder          Int             @default(0)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  deletedAt          DateTime?
+
+  segments        ServiceSegment[]
+  locationPrices  ServiceLocationPrice[]
+  lengthModifiers ServiceLengthModifier[]
+  skills          StylistSkill[]
+  appointments    AppointmentService[]
+  galleryImages   GalleryImage[]
+
+  @@index([slug])
+  @@index([categoryId, sortOrder])
+}
+
+/// The phases of a service. ACTIVE holds the stylist; PASSIVE releases them,
+/// which is what makes processing-time overlap possible. See plan §9.5.
+model ServiceSegment {
+  id              String        @id @default(uuid())
+  serviceId       String
+  service         Service       @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  sequence        Int
+  type            SegmentType
+  durationMin     Int
+  requiresStylist Boolean
+  requiresChair   Boolean       @default(true)
+  resourceType    ResourceType?
+
+  @@unique([serviceId, sequence])
+}
+
+model ServiceLocationPrice {
+  id          String   @id @default(uuid())
+  serviceId   String
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  locationId  String
+  location    Location @relation(fields: [locationId], references: [id])
+  priceCents  Int?
+  durationMin Int?
+  isOffered   Boolean  @default(true)
+
+  @@unique([serviceId, locationId])
+}
+
+model ServiceLengthModifier {
+  id               String     @id @default(uuid())
+  serviceId        String
+  service          Service    @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  hairLength       HairLength
+  priceDeltaCents  Int        @default(0)
+  durationDeltaMin Int        @default(0)
+
+  @@unique([serviceId, hairLength])
+}
+
+/// Gates who may be booked for what. Only CERTIFIED and TRAINER appear online.
+model StylistSkill {
+  id          String     @id @default(uuid())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  serviceId   String
+  service     Service    @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  level       SkillLevel @default(NOT_TRAINED)
+  certifiedAt DateTime?  @db.Date
+  expiresAt   DateTime?  @db.Date
+
+  @@unique([userId, serviceId])
+  @@index([serviceId, level])
+}
+
+model AddOn {
+  id                   String             @id @default(uuid())
+  nameHr               String
+  nameEn               String
+  priceCents           Int
+  durationMin          Int                @default(0)
+  applicableServiceIds String[]           @default([])
+  isActive             Boolean            @default(true)
+  appointments         AppointmentAddOn[]
+}
+
+// ────────────────────────────────────────────────────── clients
+
+model Client {
+  id                  String      @id @default(uuid())
+  firstName           String
+  lastName            String
+  phone               String      @unique
+  email               String?
+  preferredLocale     String      @default("hr")
+  preferredLocationId String?
+  preferredLocation   Location?   @relation("PreferredLocation", fields: [preferredLocationId], references: [id])
+  preferredStylistId  String?
+  preferredStylist    User?       @relation("PreferredStylist", fields: [preferredStylistId], references: [id])
+  hairLength          HairLength?
+  allergies           String?
+  /// Legal and safety requirement before first-time colour. See plan §10.6.
+  patchTestAt         DateTime?
+  notes               String? // staff-visible only
+  noShowCount         Int         @default(0)
+  lateCount           Int         @default(0)
+  /// Set automatically at two or more no-shows. Targets the problem rather
+  /// than taxing reliable clients.
+  requiresDeposit     Boolean     @default(false)
+  isBlocked           Boolean     @default(false)
+  loyaltyPoints       Int         @default(0)
+  marketingConsent    Boolean     @default(false)
+  photoConsent        Boolean     @default(false)
+  consentUpdatedAt    DateTime?
+  source              String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  deletedAt           DateTime?
+
+  appointments   Appointment[]
+  colourFormulas ColourFormula[]
+  waitlist       Waitlist[]
+  consents       ConsentRecord[]
+  galleryImages  GalleryImage[]
+  notifications  NotificationLog[]
+
+  @@index([phone])
+  @@index([lastName, firstName])
+}
+
+/// The highest-value data a salon owns, and the thing most salons keep on
+/// index cards that vanish when a stylist leaves.
+model ColourFormula {
+  id              String       @id @default(uuid())
+  clientId        String
+  client          Client       @relation(fields: [clientId], references: [id])
+  appointmentId   String?
+  appointment     Appointment? @relation(fields: [appointmentId], references: [id])
+  stylistId       String
+  stylist         User         @relation(fields: [stylistId], references: [id])
+  productLine     String       @default("Silky TechnoBasic")
+  shades          Json // [{ shade: "7.3", grams: 30 }, …]
+  developer       String
+  developerVolume String
+  ratio           String
+  processingMin   Int
+  resultNote      String?
+  /// What to change next time — the field that makes the record valuable.
+  nextTimeNote    String?
+  appliedAt       DateTime
+  createdAt       DateTime     @default(now())
+
+  @@index([clientId, appliedAt])
+}
+
+// ───────────────────────────────────────────────── appointments
+
+model Appointment {
+  id               String            @id @default(uuid())
+  reference        String            @unique // "SM-4K9P2"
+  locationId       String
+  location         Location          @relation(fields: [locationId], references: [id])
+  clientId         String
+  client           Client            @relation(fields: [clientId], references: [id])
+  stylistId        String
+  stylist          User              @relation(fields: [stylistId], references: [id])
+  status           AppointmentStatus @default(PENDING)
+  startsAt         DateTime
+  endsAt           DateTime
+  totalDurationMin Int
+  /// Frozen at booking. A later price change never alters an agreed price.
+  agreedPriceCents Int
+  depositCents     Int               @default(0)
+  depositStatus    DepositStatus     @default(NONE)
+  paymentIntentId  String?
+  hairLength       HairLength?
+  clientNote       String?
+  staffNote        String?
+  source           BookingSource     @default(ONLINE)
+  /// gclid / utm_* — joins bookings to ad spend in the acquisition report.
+  adAttribution    Json?
+  locale           String            @default("hr")
+  manageToken      String            @unique
+  groupBookingId   String?
+  groupBooking     GroupBooking?     @relation(fields: [groupBookingId], references: [id])
+  isMobileService  Boolean           @default(false)
+  serviceAddress   Json?
+  travelZone       String?
+  confirmedAt      DateTime?
+  completedAt      DateTime?
+  cancelledAt      DateTime?
+  cancelledBy      String?
+  cancelReason     String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  deletedAt        DateTime?
+
+  services       AppointmentService[]
+  addOns         AppointmentAddOn[]
+  segments       AppointmentSegment[]
+  colourFormulas ColourFormula[]
+  notifications  NotificationLog[]
+  galleryImages  GalleryImage[]
+
+  @@index([locationId, startsAt])
+  @@index([stylistId, startsAt])
+  @@index([clientId, startsAt])
+  @@index([status, startsAt])
+  @@index([manageToken])
+}
+
+model AppointmentService {
+  id            String      @id @default(uuid())
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  serviceId     String
+  service       Service     @relation(fields: [serviceId], references: [id])
+  priceCents    Int
+  durationMin   Int
+  sequence      Int
+}
+
+model AppointmentAddOn {
+  id            String      @id @default(uuid())
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  addOnId       String
+  addOn         AddOn       @relation(fields: [addOnId], references: [id])
+  priceCents    Int
+}
+
+/// Materialised phases, so the scheduler queries intervals rather than
+/// recomputing them. The exclusion constraint that guarantees a stylist is
+/// never double-booked lives on this table — see the migration note below.
+model AppointmentSegment {
+  id              String      @id @default(uuid())
+  appointmentId   String
+  appointment     Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  sequence        Int
+  type            SegmentType
+  startsAt        DateTime
+  endsAt          DateTime
+  requiresStylist Boolean
+  stylistId       String
+  resourceId      String?
+
+  @@index([startsAt, endsAt])
+  @@index([stylistId, startsAt])
+}
+
+/// Ten-minute optimistic hold while a client completes the form.
+model SlotHold {
+  id         String   @id @default(uuid())
+  stylistId  String
+  locationId String
+  startsAt   DateTime
+  endsAt     DateTime
+  sessionId  String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  @@index([expiresAt])
+  @@index([stylistId, startsAt])
+}
+
+model GroupBooking {
+  id           String        @id @default(uuid())
+  reference    String        @unique
+  type         GroupType
+  locationId   String?
+  location     Location?     @relation(fields: [locationId], references: [id])
+  venueAddress Json?
+  eventDate    DateTime      @db.Date
+  /// The timeline is generated backwards from this.
+  readyByTime  String
+  contactName  String
+  contactPhone String
+  contactEmail String
+  partySize    Int
+  status       EnquiryStatus @default(NEW)
+  depositCents Int?
+  notes        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  appointments Appointment[]
+}
+
+model Waitlist {
+  id                 String           @id @default(uuid())
+  clientId           String
+  client             Client           @relation(fields: [clientId], references: [id])
+  locationId         String
+  location           Location         @relation(fields: [locationId], references: [id])
+  serviceIds         String[]
+  preferredStylistId String?
+  preferredStylist   User?            @relation(fields: [preferredStylistId], references: [id])
+  dateFrom           DateTime         @db.Date
+  dateTo             DateTime         @db.Date
+  timePreference     TimePreference[] @default([])
+  status             WaitlistStatus   @default(ACTIVE)
+  notifiedCount      Int              @default(0)
+  lastNotifiedAt     DateTime?
+  createdAt          DateTime         @default(now())
+
+  @@index([locationId, status, dateFrom])
+}
+
+model Enquiry {
+  id           String        @id @default(uuid())
+  type         EnquiryType
+  payload      Json
+  status       EnquiryStatus @default(NEW)
+  assignedToId String?
+  assignedTo   User?         @relation(fields: [assignedToId], references: [id])
+  /// SLA: respond within one working day.
+  respondBy    DateTime
+  respondedAt  DateTime?
+  createdAt    DateTime      @default(now())
+
+  @@index([status, respondBy])
+}
+
+// ───────────────────────────────────────────── content and ops
+
+model GalleryImage {
+  id              String         @id @default(uuid())
+  url             String
+  altHr           String
+  altEn           String
+  serviceId       String?
+  service         Service?       @relation(fields: [serviceId], references: [id])
+  stylistId       String?
+  locationId      String?
+  location        Location?      @relation(fields: [locationId], references: [id])
+  clientId        String?
+  client          Client?        @relation(fields: [clientId], references: [id])
+  appointmentId   String?
+  appointment     Appointment?   @relation(fields: [appointmentId], references: [id])
+  hairLength      HairLength?
+  technique       String?
+  isBeforeAfter   Boolean        @default(false)
+  beforeUrl       String?
+  status          ApprovalStatus @default(SUBMITTED)
+  submittedById   String
+  submittedBy     User           @relation("GallerySubmitter", fields: [submittedById], references: [id])
+  approvedById    String?
+  approvedBy      User?          @relation("GalleryApprover", fields: [approvedById], references: [id])
+  /// An image without recorded consent cannot be approved. Enforced in the
+  /// application layer and checked in tests. See plan §10.7.
+  consentRecorded Boolean        @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime       @default(now())
+
+  @@index([status, createdAt])
+  @@index([serviceId, publishedAt])
+}
+
+model Review {
+  id          String    @id @default(uuid())
+  locationId  String
+  location    Location  @relation(fields: [locationId], references: [id])
+  stylistId   String?
+  stylist     User?     @relation(fields: [stylistId], references: [id])
+  source      String    @default("google")
+  externalId  String    @unique
+  rating      Int
+  authorName  String
+  text        String?
+  publishedAt DateTime
+  isDisplayed Boolean   @default(false)
+  respondedAt DateTime?
+
+  @@index([locationId, isDisplayed, publishedAt])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id])
+  action     String // "appointment.move"
+  entityType String
+  entityId   String
+  before     Json?
+  after      Json?
+  ipAddress  String?
+  locationId String?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorId, createdAt])
+  @@index([createdAt])
+}
+
+model NotificationLog {
+  id            String       @id @default(uuid())
+  clientId      String?
+  client        Client?      @relation(fields: [clientId], references: [id])
+  appointmentId String?
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  channel       Channel
+  template      String
+  recipient     String
+  status        String       @default("queued")
+  providerId    String?
+  sentAt        DateTime?
+  createdAt     DateTime     @default(now())
+
+  @@index([appointmentId, template])
+  @@index([status, createdAt])
+}
+
+/// GDPR Article 7 accountability — proof of what was consented to, when, and
+/// from where. See plan §20.1.
+model ConsentRecord {
+  id          String      @id @default(uuid())
+  clientId    String
+  client      Client      @relation(fields: [clientId], references: [id])
+  consentType ConsentType
+  granted     Boolean
+  grantedAt   DateTime
+  ipAddress   String?
+  sourceUrl   String?
+  withdrawnAt DateTime?
+
+  @@index([clientId, consentType])
+}
+
+// ─────────────────────────────────────────── migration note
+//
+// Prisma cannot express PostgreSQL exclusion constraints, so the invariant
+// that guarantees a stylist is never double-booked is added by hand in the
+// first migration:
+//
+//   CREATE EXTENSION IF NOT EXISTS btree_gist;
+//
+//   ALTER TABLE "AppointmentSegment"
+//     ADD CONSTRAINT no_stylist_double_booking
+//     EXCLUDE USING gist (
+//       "stylistId" WITH =,
+//       tsrange("startsAt", "endsAt") WITH &&
+//     ) WHERE ("requiresStylist");
+//
+// The `WHERE ("requiresStylist")` clause is what permits processing-time
+// overlap: passive phases are excluded from the constraint, so a second
+// client may occupy a chair during a colour developing, while the stylist's
+// own active phases remain strictly non-overlapping at the database level.
+//
+// This is deliberately enforced in the database and not only in application
+// code: it is the one invariant whose violation books a real person into two
+// places at once.
