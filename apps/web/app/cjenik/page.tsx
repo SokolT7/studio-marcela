@@ -39,7 +39,6 @@ export default function PriceListPage() {
       />
 
       <PageHeader
-        eyebrow="Cjenik"
         title="Cjenik"
         lead="Cijene vrijede za sve studije osim gdje je drukčije naznačeno. Konačna cijena ovisi o dužini i gustoći kose — stilist će vam je reći prije početka rada, nikad nakon."
         breadcrumb={[{ label: 'Cjenik' }]}
