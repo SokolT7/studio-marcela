@@ -5,7 +5,7 @@ import { CtaLink, Eyebrow, RefImage, Section } from '@/components/ui';
 import { formatPrice } from '@/lib/content/services';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Vjenčane frizure i šminkanje — Zagreb i Dubrovnik | Studio Marcela' },
+  title: { absolute: 'Vjenčane frizure i šminkanje | Studio Marcela' },
   description:
     'Vjenčane frizure, šminkanje i cijele svadbene grupe. Proba unaprijed, raspored po satima i dolazak na vašu lokaciju.',
   alternates: { canonical: '/vjencanja' },

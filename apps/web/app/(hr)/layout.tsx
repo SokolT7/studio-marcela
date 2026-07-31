@@ -17,7 +17,7 @@ import '../globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://studiomarcela.hr'),
   title: {
-    default: 'Frizerski salon Zagreb | Studio Marcela — 7 studija, online naručivanje',
+    default: 'Frizerski salon Zagreb | Studio Marcela — 7 studija',
     template: '%s | Studio Marcela',
   },
   description:

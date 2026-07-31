@@ -19,7 +19,7 @@ import { formatPrice } from '@/lib/content/services';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Hair Salon in Zagreb & Dubrovnik | Studio Marcela — Book Online',
+    absolute: 'Hair Salon Zagreb & Dubrovnik | Studio Marcela',
   },
   description:
     'Seven studios in Zagreb and Dubrovnik. Cuts, colour, bridal hair and makeup — including salons inside Rixos Premium and Sheraton Dubrovnik Riviera.',

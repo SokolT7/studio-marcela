@@ -6,7 +6,7 @@ import { HAIR_LENGTHS, PRICE_LIST } from '@/lib/content/pricelist';
 import { formatPrice } from '@/lib/content/services';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Cjenik frizerskih usluga — Zagreb i Dubrovnik | Studio Marcela' },
+  title: { absolute: 'Cjenik frizerskih usluga | Studio Marcela' },
   description:
     'Cjenik svih usluga: šišanje, bojanje, pramenovi, balayage, njega kose, svečane frizure i šminkanje. Cijene u eurima, s PDV-om.',
   alternates: { canonical: '/cjenik' },
