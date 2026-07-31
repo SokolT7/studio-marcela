@@ -58,11 +58,21 @@ export function Section({
   children,
   tone = 'paper',
   className = '',
+  innerClassName = '',
   id,
 }: {
   children: ReactNode;
   tone?: 'paper' | 'tint' | 'ink';
   className?: string;
+  /**
+   * Applied to the padded inner container.
+   *
+   * Vertical padding lives here, not on the `<section>`, so a caller wanting
+   * to change the rhythm has to target this element. Passing `!pt-*` through
+   * `className` silently does nothing — which is exactly what happened to
+   * every PageHeader override until it was measured.
+   */
+  innerClassName?: string;
   id?: string;
 }) {
   const tones = {
@@ -72,7 +82,9 @@ export function Section({
   };
   return (
     <section id={id} className={`${tones[tone]} ${className}`}>
-      <div className="mx-auto w-full max-w-[1360px] px-5 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12 lg:py-32">
+      <div
+        className={`mx-auto w-full max-w-[1360px] px-5 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12 lg:py-32 ${innerClassName}`}
+      >
         {children}
       </div>
     </section>

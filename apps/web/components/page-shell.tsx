@@ -26,7 +26,10 @@ export function PageHeader({
     // above a breadcrumb pushes the heading below the fold. Bottom padding
     // stays at zero at every width — the following section supplies its own,
     // and stacking the two leaves a dead gap under the lead paragraph.
-    <Section tone="paper" className="!pb-0 !pt-8 md:!pt-14 lg:!pt-24">
+    <Section
+      tone="paper"
+      innerClassName="!pb-0 !pt-8 md:!pt-14 lg:!pt-20"
+    >
       {breadcrumb && breadcrumb.length > 0 && (
         <nav
           aria-label="Staza"

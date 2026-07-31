@@ -43,8 +43,13 @@ function seededDiary(dateKey: string, stylists: SeedStylist[]): ExistingAppointm
 
   stylists.forEach((stylist, index) => {
     const seed = (hash + index * 977) % 9973;
-    // Two or three appointments per stylist per day.
-    const count = 2 + (seed % 2);
+    // One or two appointments per stylist per day.
+    //
+    // Tuned down from two-or-three: with the previous density a colour showed
+    // two bookable slots a day, which reads as "this salon is full" rather
+    // than "this booking system works". A demo diary should look like a
+    // healthy Tuesday, not a fully-committed one.
+    const count = 1 + (seed % 2);
 
     for (let n = 0; n < count; n++) {
       const slotSeed = (seed + n * 613) % 9973;
