@@ -43,7 +43,7 @@ export default function GroupServicesPage() {
                 'Jedna ponuda i jedan kontakt, ne šest rezervacija',
               ].map((item) => (
                 <li key={item} className="flex gap-3 text-ink-700">
-                  <span aria-hidden="true" className="mt-1.5 text-clay-600">
+                  <span aria-hidden="true" className="mt-1.5 text-gold-700">
                     —
                   </span>
                   <span className="t-body-lg">{item}</span>

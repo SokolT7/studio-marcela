@@ -35,7 +35,7 @@ export function BookingStepper({
                 className={[
                   'flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[0.75rem] font-semibold',
                   isDone
-                    ? 'bg-clay-600 text-paper-000'
+                    ? 'bg-gold-500 text-ink-900'
                     : isCurrent
                       ? 'bg-ink-900 text-paper-000'
                       : 'bg-paper-200 text-ink-500',

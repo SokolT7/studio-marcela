@@ -66,7 +66,7 @@ export default function TermsPage() {
               Uvjeti otkazivanja i povrata akontacije opisani su u{' '}
               <Link
                 href="/pravila-otkazivanja"
-                className="text-clay-600 underline underline-offset-4"
+                className="text-gold-700 underline underline-offset-4"
               >
                 Pravilima otkazivanja
               </Link>

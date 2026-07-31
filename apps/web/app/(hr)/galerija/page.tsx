@@ -68,7 +68,7 @@ export default function GalleryPage() {
                   {/* Every gallery item is a booking entry point (§7.9). */}
                   <Link
                     href={`/narucivanje?usluga=${item.service}`}
-                    className="shrink-0 text-[0.875rem] font-medium text-clay-600 underline underline-offset-4"
+                    className="shrink-0 text-[0.875rem] font-medium text-gold-700 underline underline-offset-4"
                   >
                     Rezerviraj
                   </Link>

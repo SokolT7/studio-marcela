@@ -159,11 +159,11 @@ export default function PrivacyPage() {
 
           <p className="mt-12 text-[0.9375rem] text-ink-700">
             Vezano:{' '}
-            <Link href="/uvjeti-koristenja" className="text-clay-600 underline underline-offset-4">
+            <Link href="/uvjeti-koristenja" className="text-gold-700 underline underline-offset-4">
               Uvjeti korištenja
             </Link>{' '}
             i{' '}
-            <Link href="/pravila-otkazivanja" className="text-clay-600 underline underline-offset-4">
+            <Link href="/pravila-otkazivanja" className="text-gold-700 underline underline-offset-4">
               Pravila otkazivanja
             </Link>
             .

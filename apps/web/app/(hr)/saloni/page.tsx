@@ -40,7 +40,7 @@ export default function SalonsIndexPage() {
               <li key={location.slug}>
                 <Link
                   href={`/saloni/${location.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-clay-600/45"
+                  className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-gold-500/55"
                 >
                   <RefImage
                     refId={location.heroRef}
@@ -57,7 +57,7 @@ export default function SalonsIndexPage() {
                     <p className="tabular mt-1 text-[0.9375rem] text-ink-500">
                       {location.phone}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-clay-600">
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-gold-700">
                       Pogledaj salon
                       <span
                         aria-hidden="true"

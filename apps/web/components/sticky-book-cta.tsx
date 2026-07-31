@@ -76,7 +76,7 @@ export function StickyBookCta({
         <Link
           href="/narucivanje"
           tabIndex={-1}
-          className="flex min-h-[48px] flex-1 items-center justify-center rounded-[8px] bg-clay-600 px-6 font-medium text-paper-000"
+          className="flex min-h-[48px] flex-1 items-center justify-center rounded-[8px] bg-gold-500 px-6 font-medium text-ink-900"
         >
           {copy.book}
         </Link>

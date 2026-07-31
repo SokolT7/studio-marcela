@@ -66,7 +66,7 @@ export default function TeamPage() {
                       Radi u studiju{' '}
                       <Link
                         href={`/saloni/${home.slug}`}
-                        className="text-clay-600 underline underline-offset-4"
+                        className="text-gold-700 underline underline-offset-4"
                       >
                         {home.displayName}
                       </Link>

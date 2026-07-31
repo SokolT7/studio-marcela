@@ -93,7 +93,7 @@ export default function WeddingsPage() {
             >
               <h3 className="t-heading-md">{name as string}</h3>
               <p className="mt-2 flex-1 text-[0.9375rem] text-ink-700">{note as string}</p>
-              <p className="tabular mt-4 t-heading-md text-clay-600">
+              <p className="tabular mt-4 t-heading-md text-gold-700">
                 {formatPrice(cents as number)}
               </p>
             </li>
@@ -111,7 +111,7 @@ export default function WeddingsPage() {
         <ol className="mt-10 divide-y divide-paper-200 border-y border-paper-200">
           {TIMELINE.map((step) => (
             <li key={step.title} className="grid gap-4 py-7 md:grid-cols-[12rem_1fr]">
-              <p className="t-caption text-clay-600">{step.when}</p>
+              <p className="t-caption text-gold-700">{step.when}</p>
               <div>
                 <h3 className="t-heading-md">{step.title}</h3>
                 <p className="measure mt-2 text-ink-700">{step.detail}</p>
@@ -125,7 +125,7 @@ export default function WeddingsPage() {
       <Section tone="ink">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="t-caption mb-4 text-brass-500">Dubrovnik</p>
+            <p className="t-caption mb-4 text-gold-400">Dubrovnik</p>
             <h2 className="t-display-lg text-paper-050">
               Vjenčanja u Dubrovniku i Župi dubrovačkoj
             </h2>
@@ -187,7 +187,7 @@ export default function WeddingsPage() {
             Probnu frizuru možete rezervirati i online —{' '}
             <Link
               href="/narucivanje?usluga=vjencana-frizura"
-              className="text-clay-600 underline underline-offset-4"
+              className="text-gold-700 underline underline-offset-4"
             >
               odaberite termin
             </Link>

@@ -113,7 +113,7 @@ export function MobileNav({
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
         aria-label={copy.open}
-        className="flex h-11 w-11 items-center justify-center rounded-[8px] text-ink-900 transition-colors hover:bg-paper-100 lg:hidden"
+        className="flex h-11 w-11 items-center justify-center rounded-[8px] text-paper-050 transition-colors hover:bg-paper-050/10 lg:hidden"
       >
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <path
@@ -199,7 +199,7 @@ export function MobileNav({
             <div className="border-t border-paper-200 p-4">
               <Link
                 href="/narucivanje"
-                className="flex min-h-[52px] items-center justify-center rounded-[8px] bg-clay-600 px-6 font-medium text-paper-000"
+                className="flex min-h-[52px] items-center justify-center rounded-[8px] bg-gold-500 px-6 font-medium text-ink-900"
               >
                 {copy.book}
               </Link>

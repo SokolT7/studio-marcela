@@ -22,7 +22,7 @@ export default function ContactPage() {
       />
 
       <Section tone="paper">
-        <div className="rounded-[16px] border border-clay-600/30 bg-clay-100/50 p-7">
+        <div className="rounded-[16px] border border-gold-500/40 bg-gold-100/60 p-7">
           <h2 className="t-heading-lg">Najbrže je online</h2>
           <p className="measure mt-3 text-ink-700">
             Vidite slobodne termine, cijenu i trajanje odmah, bez čekanja na liniji.
@@ -53,7 +53,7 @@ export default function ContactPage() {
                   <p>
                     <a
                       href={`tel:${location.phoneHref}`}
-                      className="tabular inline-flex min-h-[44px] items-center text-clay-600 underline underline-offset-4"
+                      className="tabular inline-flex min-h-[44px] items-center text-gold-700 underline underline-offset-4"
                     >
                       {location.phone}
                     </a>
@@ -74,7 +74,7 @@ export default function ContactPage() {
                   </CtaLink>
                   <Link
                     href={`/saloni/${location.slug}`}
-                    className="flex min-h-[44px] items-center justify-center text-[0.875rem] text-clay-600 underline underline-offset-4"
+                    className="flex min-h-[44px] items-center justify-center text-[0.875rem] text-gold-700 underline underline-offset-4"
                   >
                     Pogledaj salon
                   </Link>
@@ -95,7 +95,7 @@ export default function ContactPage() {
             </p>
             <Link
               href="/vjencanja"
-              className="mt-2 inline-flex min-h-[44px] items-center font-medium text-clay-600 underline underline-offset-4"
+              className="mt-2 inline-flex min-h-[44px] items-center font-medium text-gold-700 underline underline-offset-4"
             >
               Vjenčanja i grupe →
             </Link>
@@ -108,7 +108,7 @@ export default function ContactPage() {
             </p>
             <Link
               href="/frizer-to-go"
-              className="mt-2 inline-flex min-h-[44px] items-center font-medium text-clay-600 underline underline-offset-4"
+              className="mt-2 inline-flex min-h-[44px] items-center font-medium text-gold-700 underline underline-offset-4"
             >
               Frizer to Go →
             </Link>

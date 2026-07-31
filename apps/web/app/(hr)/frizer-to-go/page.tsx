@@ -40,7 +40,7 @@ export default function MobileServicePage() {
                   className="flex items-baseline justify-between gap-4 rounded-[8px] border border-paper-200 bg-paper-000 px-5 py-4"
                 >
                   <span className="t-heading-md">{name as string}</span>
-                  <span className="tabular t-heading-md text-clay-600">
+                  <span className="tabular t-heading-md text-gold-700">
                     {formatPrice(cents as number)}
                   </span>
                 </li>
@@ -76,7 +76,7 @@ export default function MobileServicePage() {
                 'Stilista koji radi u našim studijima, ne vanjskog suradnika',
               ].map((item) => (
                 <li key={item} className="flex gap-3 text-ink-700">
-                  <span aria-hidden="true" className="mt-1.5 text-clay-600">
+                  <span aria-hidden="true" className="mt-1.5 text-gold-700">
                     —
                   </span>
                   <span className="t-body-lg">{item}</span>
@@ -94,7 +94,7 @@ export default function MobileServicePage() {
                 'Podatak o katu i liftu, da stignemo na vrijeme',
               ].map((item) => (
                 <li key={item} className="flex gap-3 text-ink-700">
-                  <span aria-hidden="true" className="mt-1.5 text-clay-600">
+                  <span aria-hidden="true" className="mt-1.5 text-gold-700">
                     —
                   </span>
                   <span className="t-body-lg">{item}</span>

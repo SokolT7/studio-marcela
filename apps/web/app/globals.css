@@ -3,32 +3,48 @@
 /* ───────────────────────────────────────────────────────────────
    Design tokens — IMPLEMENTATION_PLAN.md §4.
 
-   Warm editorial: paper, ink, and one restrained metal accent.
-   Deliberately not the gold-on-black of the old site, which reads as
-   generic template luxury and makes warm skin tones look sickly.
+   Dark, gold and white — the brand's existing equity, carried over from
+   studiomarcela.hr at the client's direction.
+
+   The craft is in how the gold is applied rather than in replacing it:
+   generous dark surfaces for the gold to sit on, a restrained hand on
+   light ones, and a split gold family so contrast holds either way.
    ─────────────────────────────────────────────────────────────── */
 
 @theme {
-  --color-ink-900: #1a1614;
-  --color-ink-700: #3d3733;
-  --color-ink-500: #6b625c;
-  --color-ink-300: #a79d96;
+  /* ── Ink: warm near-black, the brand's dark surface ──────────── */
+  --color-ink-900: #100E0C;
+  --color-ink-800: #1C1917;
+  --color-ink-700: #3A3531;
+  --color-ink-500: #6A625B;
+  --color-ink-300: #A79E95;
 
-  --color-paper-000: #ffffff;
-  --color-paper-050: #faf7f3;
-  --color-paper-100: #f2ece5;
-  --color-paper-200: #e5dcd2;
+  /* ── Paper: white and two warm off-whites ────────────────────── */
+  --color-paper-000: #FFFFFF;
+  --color-paper-050: #FBFAF8;
+  --color-paper-100: #F4F1EB;
+  --color-paper-200: #E4DFD5;
 
-  --color-clay-600: #8c5a3c;
-  --color-clay-500: #a56d4a;
-  --color-clay-100: #f0e2d8;
+  /* ── Gold ─────────────────────────────────────────────────────
+     Five steps, because one gold cannot serve both surfaces.
+     Gold on white is the trap: the brand gold measures 2.4:1 there,
+     well under the 4.5:1 AA needs for text. So the family splits by
+     where it sits.
 
-  --color-brass-500: #b08d4f;
-  --color-brass-100: #f5eee0;
+       gold-300/400  text and accents ON DARK      (10.9:1, 7.8:1)
+       gold-500      buttons and rules; pairs with ink-900 text (7.8:1)
+       gold-700      the only gold allowed as small text ON WHITE (4.9:1)
+       gold-100      tinted backgrounds on light surfaces
+  */
+  --color-gold-300: #E8D5A3;
+  --color-gold-400: #D9BE7A;
+  --color-gold-500: #C2A15C;
+  --color-gold-700: #7A5F28;
+  --color-gold-100: #F7F0DF;
 
-  --color-success-600: #3f6f4f;
-  --color-warning-600: #9a6b20;
-  --color-danger-600: #a33a2e;
+  --color-success-600: #3F6F4F;
+  --color-warning-600: #8A6118;
+  --color-danger-600: #A33A2E;
 
   --font-display: var(--font-fraunces), Georgia, 'Times New Roman', serif;
   --font-sans: var(--font-inter), -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -163,7 +179,7 @@ body {
 /* ── Focus (§18) ──────────────────────────────────────────────── */
 
 :focus-visible {
-  outline: 2px solid var(--color-clay-600);
+  outline: 2px solid var(--color-gold-700);
   outline-offset: 3px;
   border-radius: 2px;
 }

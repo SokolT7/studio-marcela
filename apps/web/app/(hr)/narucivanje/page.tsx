@@ -44,7 +44,7 @@ export default function BookingLocationStep() {
               <li key={location.slug}>
                 <Link
                   href={`/narucivanje/${location.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-clay-600/45"
+                  className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-gold-500/55"
                 >
                   <RefImage
                     refId={location.heroRef}
@@ -63,7 +63,7 @@ export default function BookingLocationStep() {
                     <div className="mt-5 flex-1" />
 
                     {first ? (
-                      <p className="tabular rounded-[8px] bg-clay-100 px-3.5 py-2.5 text-[0.875rem] text-clay-600">
+                      <p className="tabular rounded-[8px] bg-gold-100 px-3.5 py-2.5 text-[0.875rem] text-gold-700">
                         <span className="font-semibold">Prvi slobodan termin:</span>{' '}
                         {formatDateHr(first.date, { withWeekday: true })} u{' '}
                         {slotTime(first.slot.start)}
@@ -82,7 +82,7 @@ export default function BookingLocationStep() {
 
         <p className="mt-10 text-[0.875rem] text-ink-500">
           Radije biste telefonom?{' '}
-          <Link href="/kontakt" className="text-clay-600 underline underline-offset-4">
+          <Link href="/kontakt" className="text-gold-700 underline underline-offset-4">
             Brojevi svih salona
           </Link>
         </p>

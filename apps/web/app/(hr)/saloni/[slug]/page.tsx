@@ -175,7 +175,7 @@ export default async function LocationPage({
               <span>{location.addressStreet}</span>
               <a
                 href={`tel:${location.phoneHref}`}
-                className="tabular inline-flex min-h-[44px] items-center underline decoration-brass-500 underline-offset-4 hover:text-paper-050"
+                className="tabular inline-flex min-h-[44px] items-center underline decoration-gold-400 underline-offset-4 hover:text-paper-050"
               >
                 {location.phone}
               </a>
@@ -269,14 +269,14 @@ export default async function LocationPage({
             <li key={service.slug}>
               <Link
                 href={`/narucivanje/${location.slug}/${service.slug}`}
-                className="group flex h-full flex-col rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-clay-600/45"
+                className="group flex h-full flex-col rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-gold-500/55"
               >
                 <h3 className="t-heading-md">{service.nameHr}</h3>
                 <p className="mt-2 flex-1 text-[0.9375rem] text-ink-700">
                   {service.summaryHr}
                 </p>
                 <p className="tabular mt-5 flex items-baseline gap-2 text-[0.9375rem]">
-                  <span className="font-semibold text-clay-600">
+                  <span className="font-semibold text-gold-700">
                     {service.priceMissing ? (
                       <MissingPrice />
                     ) : (
@@ -320,7 +320,7 @@ export default async function LocationPage({
               <li key={other.slug}>
                 <Link
                   href={`/saloni/${other.slug}`}
-                  className="group flex items-center justify-between gap-6 rounded-[16px] border border-paper-200 bg-paper-000 p-7 transition-colors hover:border-clay-600/45"
+                  className="group flex items-center justify-between gap-6 rounded-[16px] border border-paper-200 bg-paper-000 p-7 transition-colors hover:border-gold-500/55"
                 >
                   <div>
                     <h3 className="t-heading-md">{other.displayName}</h3>
@@ -330,7 +330,7 @@ export default async function LocationPage({
                   </div>
                   <span
                     aria-hidden="true"
-                    className="text-clay-600 transition-transform group-hover:translate-x-0.5"
+                    className="text-gold-700 transition-transform group-hover:translate-x-0.5"
                   >
                     →
                   </span>

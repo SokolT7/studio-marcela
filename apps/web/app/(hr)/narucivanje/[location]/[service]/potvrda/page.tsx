@@ -140,7 +140,7 @@ export default async function BookingConfirmStep({
                   id="napomena"
                   name="napomena"
                   rows={3}
-                  className="mt-2 w-full rounded-[8px] border border-paper-200 bg-paper-000 px-4 py-3 text-[0.9375rem] outline-none focus-visible:border-clay-600"
+                  className="mt-2 w-full rounded-[8px] border border-paper-200 bg-paper-000 px-4 py-3 text-[0.9375rem] outline-none focus-visible:border-gold-500"
                   placeholder="Alergije, prethodno bojanje, ili bilo što što bismo trebali znati."
                 />
               </div>
@@ -157,14 +157,14 @@ export default async function BookingConfirmStep({
                       Prihvaćam{' '}
                       <Link
                         href="/uvjeti-koristenja"
-                        className="text-clay-600 underline underline-offset-4"
+                        className="text-gold-700 underline underline-offset-4"
                       >
                         uvjete korištenja
                       </Link>{' '}
                       i{' '}
                       <Link
                         href="/pravila-otkazivanja"
-                        className="text-clay-600 underline underline-offset-4"
+                        className="text-gold-700 underline underline-offset-4"
                       >
                         pravila otkazivanja
                       </Link>
@@ -200,7 +200,7 @@ export default async function BookingConfirmStep({
                 type="button"
                 disabled
                 aria-disabled="true"
-                className="flex min-h-[52px] w-full cursor-not-allowed items-center justify-center rounded-[8px] bg-ink-300 px-7 font-medium text-paper-000"
+                className="flex min-h-[52px] w-full cursor-not-allowed items-center justify-center rounded-[8px] border border-paper-200 bg-paper-100 px-7 font-medium text-ink-500"
               >
                 Potvrdi termin
               </button>
@@ -248,7 +248,7 @@ export default async function BookingConfirmStep({
                 <Row label="Trajanje" value={`oko ${durationMin} min`} tabular />
                 <div className="flex justify-between gap-4 border-t border-paper-200 pt-3.5">
                   <dt className="text-ink-500">Cijena</dt>
-                  <dd className="tabular text-right font-semibold text-clay-600">
+                  <dd className="tabular text-right font-semibold text-gold-700">
                     {service.isPackage
                       ? formatPrice(service.fromPriceCents)
                       : `od ${formatPrice(service.fromPriceCents)}`}
@@ -271,7 +271,7 @@ export default async function BookingConfirmStep({
 
             <Link
               href={`/narucivanje/${locationSlug}/${serviceSlug}`}
-              className="mt-2 flex min-h-[44px] items-center justify-center text-[0.875rem] text-clay-600 underline underline-offset-4"
+              className="mt-2 flex min-h-[44px] items-center justify-center text-[0.875rem] text-gold-700 underline underline-offset-4"
             >
               Promijeni termin
             </Link>
@@ -320,7 +320,7 @@ function Field({
       <label htmlFor={id} className="block text-[0.9375rem] font-medium">
         {label}
         {required && (
-          <span className="ml-1 text-clay-600" aria-hidden="true">
+          <span className="ml-1 text-gold-700" aria-hidden="true">
             *
           </span>
         )}
@@ -332,7 +332,7 @@ function Field({
         required={required}
         autoComplete={autoComplete}
         aria-describedby={hint ? `${id}-hint` : undefined}
-        className="mt-2 w-full rounded-[8px] border border-paper-200 bg-paper-000 px-4 py-3 text-[0.9375rem] outline-none focus-visible:border-clay-600"
+        className="mt-2 w-full rounded-[8px] border border-paper-200 bg-paper-000 px-4 py-3 text-[0.9375rem] outline-none focus-visible:border-gold-500"
       />
       {hint && (
         <p id={`${id}-hint`} className="mt-1.5 text-[0.8125rem] text-ink-500">
@@ -359,12 +359,12 @@ function Consent({
         name={id}
         type="checkbox"
         required={required}
-        className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-clay-600)]"
+        className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-gold-700)]"
       />
       <label htmlFor={id} className="text-[0.875rem] text-ink-700">
         {label}
         {required && (
-          <span className="ml-1 text-clay-600" aria-hidden="true">
+          <span className="ml-1 text-gold-700" aria-hidden="true">
             *
           </span>
         )}

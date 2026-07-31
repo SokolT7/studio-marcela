@@ -54,7 +54,7 @@ export default function EnglishHomePage() {
 
         <div className="relative mx-auto w-full max-w-[1360px] px-5 py-24 md:px-8 md:py-28 lg:px-12">
           <div className="max-w-[42rem]">
-            <p className="t-caption mb-5 text-brass-500">Zagreb · Dubrovnik — since 2010</p>
+            <p className="t-caption mb-5 text-gold-400">Zagreb · Dubrovnik — since 2010</p>
             <h1 className="t-display-xl text-paper-050">
               Hair salon in Zagreb and Dubrovnik — seven studios, one standard
             </h1>
@@ -85,11 +85,11 @@ export default function EnglishHomePage() {
       <div className="border-b border-paper-200 bg-paper-100">
         <div className="mx-auto flex w-full max-w-[1360px] flex-wrap items-center justify-center gap-x-10 gap-y-3 px-5 py-5 text-[0.875rem] text-ink-700 md:px-8 lg:px-12">
           <span>16 years</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>7 studios</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>Silky TechnoBasic, direct from Milan</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>English spoken</span>
         </div>
       </div>
@@ -114,7 +114,7 @@ export default function EnglishHomePage() {
                 <li key={location.slug}>
                   <Link
                     href={`/saloni/${location.slug}`}
-                    className="group flex items-center justify-between gap-6 rounded-[16px] border border-paper-200 bg-paper-000 p-5 transition-colors hover:border-clay-600/45"
+                    className="group flex items-center justify-between gap-6 rounded-[16px] border border-paper-200 bg-paper-000 p-5 transition-colors hover:border-gold-500/55"
                   >
                     <span>
                       <span className="t-heading-md block">{location.displayName}</span>
@@ -124,7 +124,7 @@ export default function EnglishHomePage() {
                     </span>
                     <span
                       aria-hidden="true"
-                      className="text-clay-600 transition-transform group-hover:translate-x-0.5"
+                      className="text-gold-700 transition-transform group-hover:translate-x-0.5"
                     >
                       →
                     </span>
@@ -153,7 +153,7 @@ export default function EnglishHomePage() {
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
           <div>
-            <p className="t-caption mb-4 text-brass-500">Weddings</p>
+            <p className="t-caption mb-4 text-gold-400">Weddings</p>
             <h2 className="t-display-lg text-paper-050">
               Wedding hair and makeup in Dubrovnik
             </h2>
@@ -199,14 +199,14 @@ export default function EnglishHomePage() {
               className="flex items-baseline justify-between gap-4 rounded-[16px] border border-paper-200 bg-paper-000 p-6"
             >
               <span className="t-heading-md">{name as string}</span>
-              <span className="tabular t-display-md text-clay-600">
+              <span className="tabular t-display-md text-gold-700">
                 {formatPrice(cents as number)}
               </span>
             </li>
           ))}
         </ul>
 
-        <p className="measure mt-7 border-l-2 border-brass-500 pl-5 text-[0.9375rem] text-ink-700">
+        <p className="measure mt-7 border-l-2 border-gold-500 pl-5 text-[0.9375rem] text-ink-700">
           Prices apply to hair to shoulder length. For longer or thicker hair your
           stylist will tell you the exact amount before starting work.{' '}
           <strong>Never afterwards.</strong>
@@ -221,7 +221,7 @@ export default function EnglishHomePage() {
             <li key={location.slug}>
               <Link
                 href={`/saloni/${location.slug}`}
-                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-paper-200 bg-paper-000 px-4 text-[0.9375rem] text-ink-700 transition-colors hover:border-clay-600/45 hover:text-ink-900"
+                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-paper-200 bg-paper-000 px-4 text-[0.9375rem] text-ink-700 transition-colors hover:border-gold-500/55 hover:text-ink-900"
               >
                 {location.displayName}
               </Link>
@@ -244,7 +244,7 @@ export default function EnglishHomePage() {
           </div>
           <p className="mt-6 text-[0.875rem] text-ink-500">
             The booking flow is currently in Croatian. Prefer to talk to someone?{' '}
-            <Link href="/kontakt" className="text-clay-600 underline underline-offset-4">
+            <Link href="/kontakt" className="text-gold-700 underline underline-offset-4">
               Call your nearest salon
             </Link>
             .

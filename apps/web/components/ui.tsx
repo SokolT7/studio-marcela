@@ -16,7 +16,7 @@ const BUTTON_BASE =
   'min-h-[44px] whitespace-nowrap'; // 44px tap target — §4.9
 
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
-  primary: 'bg-clay-600 text-paper-000 hover:bg-clay-500',
+  primary: 'bg-gold-500 text-ink-900 hover:bg-gold-400',
   secondary:
     'border border-ink-900/25 text-ink-900 hover:border-ink-900/60 hover:bg-paper-100',
   ghost: 'text-ink-700 hover:text-ink-900 hover:bg-paper-100',
@@ -80,7 +80,7 @@ export function Section({
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="t-caption text-clay-600 mb-4">{children}</p>;
+  return <p className="t-caption text-gold-700 mb-4">{children}</p>;
 }
 
 /* ── Reference image (§6.6) ───────────────────────────────────────

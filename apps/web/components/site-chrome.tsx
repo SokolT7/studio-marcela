@@ -136,7 +136,15 @@ export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
     .map(([label, href]) => ({ label, href }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-paper-200 bg-paper-050/85 backdrop-blur-md">
+    // Dark bar with a gold rule beneath it — the old site's signature, and the
+    // surface where the brand gold actually reads. Gold on white measures
+    // 2.4:1; on this it is 7.8:1.
+    //
+    // Solid rather than translucent-with-blur, deliberately. Nothing shows
+    // through a near-black bar anyway, and `backdrop-filter` establishes a
+    // containing block for fixed-position descendants — which is what made the
+    // mobile drawer render as a 110px strip before it was portalled out.
+    <header className="sticky top-0 z-50 border-b border-gold-500/30 bg-ink-900">
       <div className="mx-auto flex w-full max-w-[1360px] items-center gap-2 px-4 py-2 sm:gap-4 sm:px-5 sm:py-3 md:px-8 lg:gap-6 lg:px-12 lg:py-4">
         {/* The wordmark is 208px wide at its desktop size, which alone eats
             two thirds of a 320px viewport. It scales down with the viewport,
@@ -144,7 +152,7 @@ export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
             text happened to occupy. */}
         <Link
           href={home}
-          className="flex min-h-[44px] shrink-0 items-center font-display text-[0.8125rem] tracking-[0.14em] text-ink-900 sm:text-[0.9375rem] sm:tracking-[0.18em] lg:text-[1.0625rem] lg:tracking-[0.22em]"
+          className="flex min-h-[44px] shrink-0 items-center font-display text-[0.8125rem] tracking-[0.14em] text-gold-400 transition-colors hover:text-gold-300 sm:text-[0.9375rem] sm:tracking-[0.18em] lg:text-[1.0625rem] lg:tracking-[0.22em]"
         >
           STUDIO MARCELA
         </Link>
@@ -158,7 +166,7 @@ export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="flex min-h-[44px] items-center text-[0.9375rem] text-ink-700 transition-colors hover:text-ink-900"
+                  className="flex min-h-[44px] items-center text-[0.9375rem] text-paper-200 transition-colors hover:text-gold-400"
                 >
                   {item.label}
                 </Link>
@@ -202,7 +210,7 @@ export function SiteFooter({ locale = 'hr' }: { locale?: Locale }) {
 
   const column = (title: string, links: [string, string][]) => (
     <div>
-      <h2 className="t-caption mb-5 text-brass-500">{title}</h2>
+      <h2 className="t-caption mb-5 text-gold-400">{title}</h2>
       <ul>
         {links.map(([label, href]) => (
           <li key={href}>
@@ -236,7 +244,7 @@ export function SiteFooter({ locale = 'hr' }: { locale?: Locale }) {
             © {new Date().getFullYear()} Studio Marcela. {RIGHTS[locale]}
           </p>
           <p className="flex items-center gap-2">
-            <span className="h-1 w-1 rounded-full bg-brass-500" aria-hidden="true" />
+            <span className="h-1 w-1 rounded-full bg-gold-400" aria-hidden="true" />
             {PARTNER_LINE[locale]}
           </p>
         </div>

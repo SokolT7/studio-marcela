@@ -67,7 +67,7 @@ export default async function BookingServiceStep({
           </p>
         </div>
 
-        <h2 className="t-caption mt-14 text-clay-600">Sve uključeno</h2>
+        <h2 className="t-caption mt-14 text-gold-700">Sve uključeno</h2>
         <ul className="mt-5 grid gap-4 lg:grid-cols-2">
           {bookable
             .filter((s) => s.isPackage)
@@ -115,7 +115,7 @@ export default async function BookingServiceStep({
             </ul>
             <a
               href={`tel:${location.phoneHref}`}
-              className="mt-3 inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-clay-600 underline underline-offset-4"
+              className="mt-3 inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-gold-700 underline underline-offset-4"
             >
               Nazovite {location.displayName} — {location.phone}
             </a>
@@ -146,14 +146,14 @@ function ServiceOption({
         className={[
           'group flex h-full flex-col rounded-[16px] border bg-paper-000 p-6 transition-colors',
           highlight
-            ? 'border-clay-600/35 hover:border-clay-600'
-            : 'border-paper-200 hover:border-clay-600/45',
+            ? 'border-gold-500/45 hover:border-gold-500'
+            : 'border-paper-200 hover:border-gold-500/55',
         ].join(' ')}
       >
         <div className="flex items-start justify-between gap-4">
           <h3 className="t-heading-md">{service.nameHr}</h3>
           <p className="tabular shrink-0 text-right">
-            <span className="t-heading-md text-clay-600">
+            <span className="t-heading-md text-gold-700">
               {service.priceMissing ? (
                 <MissingPrice />
               ) : service.isPackage ? (
@@ -182,7 +182,7 @@ function ServiceOption({
               <span className="text-paper-200" aria-hidden="true">
                 ·
               </span>
-              <span className="tabular text-clay-600">
+              <span className="tabular text-gold-700">
                 prvi termin {formatDateHr(first.date)} u {slotTime(first.slot.start)}
               </span>
             </>

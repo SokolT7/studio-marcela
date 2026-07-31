@@ -200,47 +200,57 @@ The current site answers none of these above the fold on any page.
 
 ### 4.2 Colour
 
-Moving away from the current gold-on-black, which reads as generic template luxury and
-performs badly for legibility and for photography (dark UI makes warm skin tones look sickly).
+**Decision, 31 July 2026 — client direction.** Keep the existing brand equity:
+dark, gold and white, as on studiomarcela.hr. An earlier draft of this section
+argued for moving away from gold-on-black; the client overruled it, and they
+are right that the palette is recognisably theirs. The work is therefore in
+*how* the gold is applied, not in replacing it.
 
-Direction: **warm editorial** — paper, ink, and a single restrained metal accent.
+Three surfaces: a warm near-black, white and two warm off-whites, and a gold
+family.
 
 ```
---ink-900        #1A1614   Primary text, near-black with a warm bias
---ink-700        #3D3733   Secondary text
---ink-500        #6B625C   Tertiary text, captions
---ink-300        #A79D96   Disabled, hairlines on dark
+--color-ink-900   #100E0C   Dark surfaces: header, footer, heroes, feature bands
+--color-ink-800   #1C1917   Second dark step, for layering on dark
+--color-ink-700   #3A3531   Body text on light surfaces
+--color-ink-500   #6A625B   Secondary text on light
+--color-ink-300   #A79E95   Tertiary, hairlines on dark
 
---paper-000      #FFFFFF   Card surfaces
---paper-050      #FAF7F3   Page background
---paper-100      #F2ECE5   Alternating sections
---paper-200      #E5DCD2   Borders, dividers
+--color-paper-000 #FFFFFF   Cards
+--color-paper-050 #FBFAF8   Page background
+--color-paper-100 #F4F1EB   Alternating sections
+--color-paper-200 #E4DFD5   Borders, dividers
 
---clay-600       #8C5A3C   Primary brand accent (warm terracotta-brown)
---clay-500       #A56D4A   Hover
---clay-100       #F0E2D8   Tinted backgrounds, selected states
-
---brass-500      #B08D4F   Metal accent — rules, small marks, NOT body text
---brass-100      #F5EEE0   Brass tint
-
---success-600    #3F6F4F   Confirmed appointment
---warning-600    #9A6B20   Pending / deposit due
---danger-600     #A33A2E   Cancelled, no-show, destructive actions
---info-600       #3D6076   Informational
+--color-gold-300  #E8D5A3   Hover state on dark
+--color-gold-400  #D9BE7A   Text and accents ON DARK
+--color-gold-500  #C2A15C   Buttons, rules, ornament
+--color-gold-700  #7A5F28   The only gold permitted as small text ON WHITE
+--color-gold-100  #F7F0DF   Tinted backgrounds on light surfaces
 ```
 
-Treat these values as directionally agreed and numerically provisional until the design
-review in §24 Milestone 1 — they are a starting point for the palette, not a locked spec.
+**The rule that makes this work.** One gold cannot serve both surfaces. The
+brand gold measures **2.4:1 on white** — nowhere near the 4.5:1 that AA
+requires for text — while measuring **7.8:1 on ink-900**. So the family splits
+by where it sits:
 
-**Rules**
+| Context | Token | Ratio |
+|---|---|---|
+| Text and accents on dark | `gold-400` | 7.8:1 ✓ |
+| Small text on white | `gold-700` | 4.9:1 ✓ |
+| Button fill, with `ink-900` text on it | `gold-500` | 7.8:1 ✓ |
+| Rules, borders, ornament | `gold-500` | decorative, no threshold |
+| Large display figures on white | `gold-500` | 3:1 large-text threshold ✓ |
 
-- Body text is always `--ink-900` or `--ink-700` on a paper surface. Never brass on paper —
-  it fails contrast.
-- `--brass-500` is permitted only for hairlines, small ornaments, and iconography above 3:1.
-- Every text/background pair must clear **WCAG AA (4.5:1)**; large display text 3:1. Verified
-  in CI (§21.4).
-- Dark mode: **not** in v1. A warm, paper-led identity does not invert well, and the audience
-  does not expect it. Revisit post-launch if analytics justify it.
+**Never** `gold-500` as body text on white, and **never** white text on a gold
+fill — that pairing is 2.4:1 and is the single easiest way to break this
+palette. Gold-on-gold-tint is likewise out.
+
+**Where the dark goes.** The gold needs dark surfaces to sit on or it has
+nowhere to work: the header, the footer, every hero, and the feature bands are
+`ink-900`. Content-heavy pages stay light so long-form copy remains readable —
+which is also how the old site was structured.
+
+Contrast is verified against the rendered pages in CI (§21.4), not by eye.
 
 ### 4.3 Typography
 

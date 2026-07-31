@@ -127,7 +127,7 @@ export default async function BookingTimeStep({
                   className={[
                     'flex min-h-[44px] items-center rounded-[8px] border px-4 text-[0.9375rem] font-medium transition-colors',
                     !selectedStylist
-                      ? 'border-clay-600 bg-clay-100 text-clay-600'
+                      ? 'border-gold-500 bg-gold-100 text-gold-700'
                       : 'border-paper-200 bg-paper-000 text-ink-700 hover:border-ink-900/40',
                   ].join(' ')}
                 >
@@ -145,7 +145,7 @@ export default async function BookingTimeStep({
                       className={[
                         'flex min-h-[44px] items-center gap-2.5 rounded-[8px] border py-1.5 pl-1.5 pr-4 text-[0.9375rem] font-medium transition-colors',
                         selectedStylist === s.id
-                          ? 'border-clay-600 bg-clay-100 text-clay-600'
+                          ? 'border-gold-500 bg-gold-100 text-gold-700'
                           : 'border-paper-200 bg-paper-000 text-ink-700 hover:border-ink-900/40',
                       ].join(' ')}
                     >
@@ -186,7 +186,7 @@ export default async function BookingTimeStep({
                         className={[
                           'flex min-h-[68px] w-[5.25rem] flex-col items-center justify-center rounded-[8px] border text-center transition-colors',
                           isSelected
-                            ? 'border-clay-600 bg-clay-100 text-clay-600'
+                            ? 'border-gold-500 bg-gold-100 text-gold-700'
                             : 'border-paper-200 bg-paper-000 text-ink-700 hover:border-ink-900/40',
                         ].join(' ')}
                       >
@@ -201,7 +201,7 @@ export default async function BookingTimeStep({
                       // Days with nothing free are visibly disabled, not hidden.
                       <span
                         aria-disabled="true"
-                        className="flex min-h-[68px] w-[5.25rem] cursor-not-allowed flex-col items-center justify-center rounded-[8px] border border-dashed border-paper-200 text-center text-ink-300"
+                        className="flex min-h-[68px] w-[5.25rem] cursor-not-allowed flex-col items-center justify-center rounded-[8px] border border-dashed border-paper-200 bg-paper-100/60 text-center text-ink-500"
                       >
                         <span className="text-[0.75rem] uppercase tracking-wide">
                           {formatDateHr(date, { withWeekday: true }).split(',')[0]}
@@ -236,7 +236,7 @@ export default async function BookingTimeStep({
                         <li key={`${slot.stylistId}-${slot.start}`}>
                           <Link
                             href={`/narucivanje/${locationSlug}/${serviceSlug}/potvrda?t=${slot.start}&s=${slot.stylistId}`}
-                            className="tabular flex min-h-[44px] min-w-[4.5rem] items-center justify-center rounded-[8px] border border-paper-200 bg-paper-000 px-3 text-[0.9375rem] font-medium text-ink-900 transition-colors hover:border-clay-600 hover:bg-clay-100 hover:text-clay-600"
+                            className="tabular flex min-h-[44px] min-w-[4.5rem] items-center justify-center rounded-[8px] border border-paper-200 bg-paper-000 px-3 text-[0.9375rem] font-medium text-ink-900 transition-colors hover:border-gold-500 hover:bg-gold-100 hover:text-gold-700"
                           >
                             {slotTime(slot.start)}
                           </Link>
@@ -272,7 +272,7 @@ export default async function BookingTimeStep({
                 </div>
                 <div className="flex justify-between gap-4 border-t border-paper-200 pt-3.5">
                   <dt className="text-ink-500">Cijena</dt>
-                  <dd className="tabular text-right font-semibold text-clay-600">
+                  <dd className="tabular text-right font-semibold text-gold-700">
                     {service.isPackage
                       ? formatPrice(service.fromPriceCents)
                       : `od ${formatPrice(service.fromPriceCents)}`}

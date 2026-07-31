@@ -71,7 +71,7 @@ export default function HomePage() {
 
         <div className="relative mx-auto w-full max-w-[1360px] px-5 py-24 md:px-8 md:py-28 lg:px-12">
           <div className="max-w-[42rem]">
-            <p className="t-caption reveal mb-5 text-brass-500">
+            <p className="t-caption reveal mb-5 text-gold-400">
               Zagreb · Dubrovnik — od 2010.
             </p>
             <h1 className="t-display-xl reveal reveal-1 text-paper-050">
@@ -105,11 +105,11 @@ export default function HomePage() {
       <div className="border-b border-paper-200 bg-paper-100">
         <div className="mx-auto flex w-full max-w-[1360px] flex-wrap items-center justify-center gap-x-10 gap-y-3 px-5 py-5 text-[0.875rem] text-ink-700 md:px-8 lg:px-12">
           <span>16 godina iskustva</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>7 studija</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>Silky TechnoBasic iz Milana</span>
-          <span className="hidden h-1 w-1 rounded-full bg-brass-500 sm:block" aria-hidden="true" />
+          <span className="hidden h-1 w-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
           <span>174+ recenzija</span>
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function HomePage() {
                 <Link
                   key={pkg.slug}
                   href={`/narucivanje?paket=${pkg.slug}`}
-                  className="group flex items-center gap-5 rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-clay-600/45"
+                  className="group flex items-center gap-5 rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-gold-500/55"
                 >
                   <div className="min-w-0 flex-1">
                     <h3 className="t-heading-md">{pkg.nameHr}</h3>
@@ -139,7 +139,7 @@ export default function HomePage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="t-display-md tabular text-clay-600">
+                    <p className="t-display-md tabular text-gold-700">
                       {formatPrice(pkg.fromPriceCents)}
                     </p>
                     <p className="tabular text-[0.8125rem] text-ink-500">
@@ -151,7 +151,7 @@ export default function HomePage() {
             </div>
 
             {/* Answers the single biggest anxiety in salon pricing (§8.4). */}
-            <p className="measure mt-7 border-l-2 border-brass-500 pl-5 text-[0.9375rem] text-ink-700">
+            <p className="measure mt-7 border-l-2 border-gold-500 pl-5 text-[0.9375rem] text-ink-700">
               Cijena vrijedi za kosu do ramena. Za dužu ili gušću kosu stilist će vam
               reći točan iznos prije početka rada. <strong>Nikad nakon.</strong>
             </p>
@@ -182,7 +182,7 @@ export default function HomePage() {
             <li key={location.slug}>
               <Link
                 href={`/saloni/${location.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-clay-600/45"
+                className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-gold-500/55"
               >
                 <RefImage
                   refId={location.heroRef}
@@ -200,7 +200,7 @@ export default function HomePage() {
                   <p className="tabular mt-1 text-[0.9375rem] text-ink-500">
                     {location.phone}
                   </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-clay-600">
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-gold-700">
                     Pogledaj salon
                     <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                       →
@@ -225,7 +225,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/cjenik"
-            className="inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-clay-600 underline-offset-4 hover:underline"
+            className="inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-gold-700 underline-offset-4 hover:underline"
           >
             Cijeli cjenik →
           </Link>
@@ -236,7 +236,7 @@ export default function HomePage() {
             <li key={service.slug}>
               <Link
                 href={`/narucivanje?usluga=${service.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-clay-600/45"
+                className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-gold-500/55"
               >
                 <RefImage
                   refId={service.imageRef}
@@ -251,7 +251,7 @@ export default function HomePage() {
                     {service.summaryHr}
                   </p>
                   <p className="tabular mt-5 flex items-baseline gap-2 text-[0.9375rem]">
-                    <span className="font-semibold text-clay-600">
+                    <span className="font-semibold text-gold-700">
                       {service.priceMissing ? (
                         <MissingPrice />
                       ) : (
@@ -280,7 +280,7 @@ export default function HomePage() {
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
           <div>
-            <p className="t-caption mb-4 text-brass-500">Silky TechnoBasic</p>
+            <p className="t-caption mb-4 text-gold-400">Silky TechnoBasic</p>
             <h2 className="t-display-lg text-paper-050">
               Iz Milana, izravno u naše studije
             </h2>
@@ -314,7 +314,9 @@ export default function HomePage() {
             </blockquote>
             <figcaption className="mt-7 text-[0.9375rem] text-ink-500">
               <span className="font-medium text-ink-900">Jadranka Pezo</span>
-              <span className="mx-2 text-ink-300">·</span>
+              <span className="mx-2 text-ink-300" aria-hidden="true">
+                ·
+              </span>
               osnivačica Studija Marcela
             </figcaption>
             <CtaLink href="/o-nama" variant="secondary" className="mt-9">

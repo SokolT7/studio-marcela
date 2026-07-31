@@ -38,7 +38,7 @@ export default function ServicesIndexPage() {
                 <li key={service.slug}>
                   <Link
                     href={`/usluge/${service.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-clay-600/45"
+                    className="group flex h-full flex-col overflow-hidden rounded-[16px] border border-paper-200 bg-paper-000 transition-colors hover:border-gold-500/55"
                   >
                     <RefImage
                       refId={service.imageRef}
@@ -53,7 +53,7 @@ export default function ServicesIndexPage() {
                         {service.summaryHr}
                       </p>
                       <p className="tabular mt-5 flex flex-wrap items-baseline gap-x-2 text-[0.9375rem]">
-                        <span className="font-semibold text-clay-600">
+                        <span className="font-semibold text-gold-700">
                           {service.priceMissing ? (
                             <MissingPrice />
                           ) : service.isPackage ? (
@@ -91,7 +91,7 @@ export default function ServicesIndexPage() {
           </p>
           <Link
             href="/cjenik"
-            className="mt-4 inline-flex min-h-[44px] items-center font-medium text-clay-600 underline underline-offset-4"
+            className="mt-4 inline-flex min-h-[44px] items-center font-medium text-gold-700 underline underline-offset-4"
           >
             Pogledaj cjenik →
           </Link>

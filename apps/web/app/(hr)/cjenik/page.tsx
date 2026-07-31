@@ -86,7 +86,7 @@ export default function PriceListPage() {
                     key={row.nameHr}
                     className={[
                       'border-b border-paper-200/70',
-                      row.highlight ? 'bg-clay-100/50' : '',
+                      row.highlight ? 'bg-gold-100/60' : '',
                     ].join(' ')}
                   >
                     <th scope="row" className="py-4 pr-4 text-left font-normal sm:pr-6">
@@ -112,7 +112,7 @@ export default function PriceListPage() {
                       ) : (
                         <span
                           className={
-                            row.highlight ? 'font-semibold text-clay-600' : 'text-ink-900'
+                            row.highlight ? 'font-semibold text-gold-700' : 'text-ink-900'
                           }
                         >
                           {row.isSurcharge && '+ '}
@@ -139,7 +139,7 @@ export default function PriceListPage() {
           <p>
             Usluge označene „na upit” dogovaramo osobno jer cijena previše ovisi o
             stanju i dužini kose.{' '}
-            <Link href="/kontakt" className="text-clay-600 underline underline-offset-4">
+            <Link href="/kontakt" className="text-gold-700 underline underline-offset-4">
               Javite nam se
             </Link>{' '}
             i reći ćemo vam točan iznos.

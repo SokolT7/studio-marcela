@@ -39,14 +39,14 @@ export function LanguageSwitcher() {
           return (
             <li key={locale} className="flex items-center">
               {index > 0 && (
-                <span aria-hidden="true" className="mr-1 text-ink-300">
+                <span aria-hidden="true" className="mr-1 text-paper-200/55">
                   /
                 </span>
               )}
               {isActive ? (
                 <span
                   aria-current="true"
-                  className="px-1 text-[0.8125rem] font-semibold uppercase tracking-wider text-ink-900"
+                  className="px-1 text-[0.8125rem] font-semibold uppercase tracking-wider text-gold-400"
                 >
                   <span aria-hidden="true">{LABELS[locale].short}</span>
                   <span className="sr-only">{LABELS[locale].full}</span>
@@ -63,7 +63,7 @@ export function LanguageSwitcher() {
                         ? 'English homepage — this page is not translated yet'
                         : 'Hrvatska početna — ova stranica još nije prevedena'
                   }
-                  className="px-1 text-[0.8125rem] uppercase tracking-wider text-ink-500 transition-colors hover:text-ink-900"
+                  className="px-1 text-[0.8125rem] uppercase tracking-wider text-paper-200/75 transition-colors hover:text-gold-400"
                 >
                   <span aria-hidden="true">{LABELS[locale].short}</span>
                   <span className="sr-only">{LABELS[locale].full}</span>

@@ -126,7 +126,7 @@ export default async function ServicePage({
             <p className="t-body-lg measure mt-6 text-ink-700">{service.summaryHr}</p>
 
             <div className="tabular mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-2">
-              <span className="t-display-md text-clay-600">
+              <span className="t-display-md text-gold-700">
                 {service.priceMissing ? (
                   <MissingPrice />
                 ) : service.isPackage ? (
@@ -216,7 +216,7 @@ export default async function ServicePage({
                 <ul className="space-y-3">
                   {service.suitsHr.map((item) => (
                     <li key={item} className="flex gap-3 text-ink-700">
-                      <span aria-hidden="true" className="mt-1.5 text-clay-600">
+                      <span aria-hidden="true" className="mt-1.5 text-gold-700">
                         —
                       </span>
                       <span className="t-body-lg">{item}</span>
@@ -227,7 +227,7 @@ export default async function ServicePage({
               {service.notSuitsHr && (
                 // Being honest here prevents the worst kind of appointment:
                 // one that cannot deliver what was expected (§7.3).
-                <p className="measure mt-8 border-l-2 border-brass-500 pl-5 text-ink-700">
+                <p className="measure mt-8 border-l-2 border-gold-500 pl-5 text-ink-700">
                   {service.notSuitsHr}
                 </p>
               )}
@@ -244,7 +244,7 @@ export default async function ServicePage({
             <ol className="divide-y divide-paper-200 border-y border-paper-200">
               {service.stepsHr.map((step, index) => (
                 <li key={step.title} className="flex gap-5 py-6">
-                  <span className="tabular text-[0.875rem] font-semibold text-clay-600">
+                  <span className="tabular text-[0.875rem] font-semibold text-gold-700">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <div>
@@ -276,7 +276,7 @@ export default async function ServicePage({
             <li key={location.slug}>
               <Link
                 href={`/saloni/${location.slug}`}
-                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-paper-200 bg-paper-000 px-4 text-[0.9375rem] text-ink-700 transition-colors hover:border-clay-600/45 hover:text-ink-900"
+                className="inline-flex min-h-[44px] items-center rounded-[8px] border border-paper-200 bg-paper-000 px-4 text-[0.9375rem] text-ink-700 transition-colors hover:border-gold-500/55 hover:text-ink-900"
               >
                 {location.displayName}
               </Link>
@@ -311,13 +311,13 @@ export default async function ServicePage({
               <li key={other.slug}>
                 <Link
                   href={`/usluge/${other.slug}`}
-                  className="group flex h-full flex-col rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-clay-600/45"
+                  className="group flex h-full flex-col rounded-[16px] border border-paper-200 bg-paper-000 p-6 transition-colors hover:border-gold-500/55"
                 >
                   <h3 className="t-heading-md">{other.nameHr}</h3>
                   <p className="mt-2 flex-1 text-[0.9375rem] text-ink-700">
                     {other.summaryHr}
                   </p>
-                  <span className="tabular mt-4 text-[0.9375rem] font-medium text-clay-600">
+                  <span className="tabular mt-4 text-[0.9375rem] font-medium text-gold-700">
                     {other.priceMissing
                       ? 'cijena na upit'
                       : `od ${formatPrice(other.fromPriceCents)}`}

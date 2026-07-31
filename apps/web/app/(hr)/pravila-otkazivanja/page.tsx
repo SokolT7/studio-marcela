@@ -55,7 +55,7 @@ export default function CancellationPage() {
             <p>
               Ako poveznicu ne možete pronaći, nazovite studio u koji ste naručeni —
               brojevi su na{' '}
-              <Link href="/kontakt" className="text-clay-600 underline underline-offset-4">
+              <Link href="/kontakt" className="text-gold-700 underline underline-offset-4">
                 stranici kontakta
               </Link>
               .

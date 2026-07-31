@@ -46,7 +46,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <figure className="mt-10 border-l-2 border-brass-500 pl-6">
+            <figure className="mt-10 border-l-2 border-gold-500 pl-6">
               <blockquote className="t-display-md text-ink-900">
                 „Ne prodajemo frizure. Gradimo povjerenje — rez po rez, boja po boja.”
               </blockquote>
@@ -62,7 +62,7 @@ export default function AboutPage() {
       <Section tone="ink">
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <p className="t-caption mb-4 text-brass-500">Silky TechnoBasic</p>
+            <p className="t-caption mb-4 text-gold-400">Silky TechnoBasic</p>
             <h2 className="t-display-lg text-paper-050">
               Iz Milana, izravno u naše studije
             </h2>
@@ -126,7 +126,7 @@ export default function AboutPage() {
             <div key={label}>
               <dt className="sr-only">{label}</dt>
               <dd>
-                <span className="t-display-lg tabular block text-clay-600">{value}</span>
+                <span className="t-display-lg tabular block text-gold-700">{value}</span>
                 <span className="mt-2 block text-ink-700">{label}</span>
               </dd>
             </div>

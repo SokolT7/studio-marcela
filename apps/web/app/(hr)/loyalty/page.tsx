@@ -39,7 +39,7 @@ export default function LoyaltyPage() {
                 },
               ].map((step, index) => (
                 <li key={step.title} className="flex gap-5">
-                  <span className="tabular text-[0.875rem] font-semibold text-clay-600">
+                  <span className="tabular text-[0.875rem] font-semibold text-gold-700">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <div>
