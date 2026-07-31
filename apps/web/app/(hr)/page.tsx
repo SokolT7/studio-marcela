@@ -225,7 +225,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/cjenik"
-            className="text-[0.9375rem] font-medium text-clay-600 underline-offset-4 hover:underline"
+            className="inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-clay-600 underline-offset-4 hover:underline"
           >
             Cijeli cjenik →
           </Link>

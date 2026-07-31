@@ -188,6 +188,16 @@ body {
   left: 0;
 }
 
+/* ── Sticky mobile CTA clearance ──────────────────────────────
+   The bar is fixed to the bottom below `lg`, so the page needs room
+   underneath it or it covers the final rows of the footer. */
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
 /* ── Reference-image watermark (§6.6) ─────────────────────────── */
 
 /* Positioning is applied by the component itself, so an image without a

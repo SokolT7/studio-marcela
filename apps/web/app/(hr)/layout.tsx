@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SiteFooter, SiteHeader } from '@/components/site-chrome';
+import { StickyBookCta } from '@/components/sticky-book-cta';
 import { ORGANISATION_SCHEMA, fontVariables } from '@/lib/fonts';
 import '../globals.css';
 
@@ -52,6 +53,7 @@ export default function CroatianRootLayout({
         <SiteHeader locale="hr" />
         <main id="sadrzaj">{children}</main>
         <SiteFooter locale="hr" />
+        <StickyBookCta locale="hr" />
       </body>
     </html>
   );

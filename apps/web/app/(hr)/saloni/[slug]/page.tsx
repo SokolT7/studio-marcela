@@ -150,20 +150,16 @@ export default async function LocationPage({
         </div>
 
         <div className="relative mx-auto w-full max-w-[1360px] px-5 py-24 md:px-8 md:py-32 lg:px-12">
-          <nav aria-label="Staza" className="mb-8 text-[0.8125rem] text-ink-300">
-            <Link href="/" className="hover:text-paper-050">
+          <nav aria-label="Staza" className="mb-4 flex flex-wrap items-center text-[0.8125rem] text-ink-300">
+            <Link href="/" className="flex min-h-[44px] items-center pr-1 hover:text-paper-050">
               Početna
             </Link>
-            <span className="mx-2" aria-hidden="true">
-              /
-            </span>
-            <Link href="/saloni" className="hover:text-paper-050">
+            <span aria-hidden="true">/</span>
+            <Link href="/saloni" className="flex min-h-[44px] items-center px-1 hover:text-paper-050">
               Saloni
             </Link>
-            <span className="mx-2" aria-hidden="true">
-              /
-            </span>
-            <span className="text-paper-200">{location.displayName}</span>
+            <span aria-hidden="true">/</span>
+            <span className="flex min-h-[44px] items-center px-1 text-paper-200">{location.displayName}</span>
           </nav>
 
           <div className="max-w-[48rem]">
@@ -179,7 +175,7 @@ export default async function LocationPage({
               <span>{location.addressStreet}</span>
               <a
                 href={`tel:${location.phoneHref}`}
-                className="tabular underline decoration-brass-500 underline-offset-4 hover:text-paper-050"
+                className="tabular inline-flex min-h-[44px] items-center underline decoration-brass-500 underline-offset-4 hover:text-paper-050"
               >
                 {location.phone}
               </a>

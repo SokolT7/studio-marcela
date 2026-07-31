@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SiteFooter, SiteHeader } from '@/components/site-chrome';
+import { StickyBookCta } from '@/components/sticky-book-cta';
 import { ORGANISATION_SCHEMA, fontVariables } from '@/lib/fonts';
 import '../globals.css';
 
@@ -50,6 +51,7 @@ export default function EnglishRootLayout({
         <SiteHeader locale="en" />
         <main id="content">{children}</main>
         <SiteFooter locale="en" />
+        <StickyBookCta locale="en" />
       </body>
     </html>
   );

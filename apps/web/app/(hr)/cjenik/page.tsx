@@ -67,8 +67,8 @@ export default function PriceListPage() {
         <Section key={group.slug} tone={index % 2 === 0 ? 'tint' : 'paper'}>
           <h2 className="t-display-md">{group.titleHr}</h2>
 
-          <div className="mt-8 overflow-x-auto">
-            <table className="w-full min-w-[32rem] border-collapse">
+          <div className="mt-8">
+            <table className="w-full border-collapse">
               <caption className="sr-only">{group.titleHr} — cijene u eurima</caption>
               <thead>
                 <tr className="border-b border-paper-200 text-left">
@@ -89,7 +89,7 @@ export default function PriceListPage() {
                       row.highlight ? 'bg-clay-100/50' : '',
                     ].join(' ')}
                   >
-                    <th scope="row" className="py-4 pr-6 text-left font-normal">
+                    <th scope="row" className="py-4 pr-4 text-left font-normal sm:pr-6">
                       <span
                         className={row.highlight ? 'font-semibold text-ink-900' : 'text-ink-900'}
                       >

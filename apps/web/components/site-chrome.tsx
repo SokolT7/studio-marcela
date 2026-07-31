@@ -3,6 +3,7 @@ import { LOCATIONS } from '@/lib/content/locations';
 import type { Locale } from '@/lib/i18n';
 import { CtaLink } from './ui';
 import { LanguageSwitcher } from './language-switcher';
+import { MobileNav } from './mobile-nav';
 
 /**
  * Header and footer.
@@ -124,13 +125,26 @@ const RIGHTS: Record<Locale, string> = {
 
 export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
   const home = locale === 'en' ? '/en' : '/';
+  // The drawer's "more" list must not repeat what the primary nav already
+  // shows — O nama and Naš tim appear in both source lists.
+  const primaryHrefs = new Set(NAV[locale].map((item) => item.href));
+  const secondary = [
+    ...FOOTER_STUDIO[locale],
+    ...FOOTER_HELP[locale].slice(0, 2),
+  ]
+    .filter(([, href]) => !primaryHrefs.has(href))
+    .map(([label, href]) => ({ label, href }));
 
   return (
     <header className="sticky top-0 z-50 border-b border-paper-200 bg-paper-050/85 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-[1360px] items-center gap-6 px-5 py-4 md:px-8 lg:px-12">
+      <div className="mx-auto flex w-full max-w-[1360px] items-center gap-2 px-4 py-2 sm:gap-4 sm:px-5 sm:py-3 md:px-8 lg:gap-6 lg:px-12 lg:py-4">
+        {/* The wordmark is 208px wide at its desktop size, which alone eats
+            two thirds of a 320px viewport. It scales down with the viewport,
+            and the link carries a 44px tap height rather than the 26px the
+            text happened to occupy. */}
         <Link
           href={home}
-          className="font-display text-[1.0625rem] tracking-[0.22em] text-ink-900"
+          className="flex min-h-[44px] shrink-0 items-center font-display text-[0.8125rem] tracking-[0.14em] text-ink-900 sm:text-[0.9375rem] sm:tracking-[0.18em] lg:text-[1.0625rem] lg:tracking-[0.22em]"
         >
           STUDIO MARCELA
         </Link>
@@ -144,7 +158,7 @@ export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-[0.9375rem] text-ink-700 transition-colors hover:text-ink-900"
+                  className="flex min-h-[44px] items-center text-[0.9375rem] text-ink-700 transition-colors hover:text-ink-900"
                 >
                   {item.label}
                 </Link>
@@ -153,10 +167,30 @@ export function SiteHeader({ locale = 'hr' }: { locale?: Locale }) {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-3 lg:ml-0">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-3 lg:ml-0">
           <LanguageSwitcher />
-          {/* The only primary-styled button in the header, at every breakpoint. */}
-          <CtaLink href="/narucivanje">{BOOK_LABEL[locale]}</CtaLink>
+          {/* At 320px the wordmark, a booking button and a menu trigger come
+              to 311px inside 288px of usable width. The button is the thing to
+              drop: on a phone it is already reachable from the hero, from the
+              sticky bar after 40% scroll, and from the drawer — three routes,
+              against a header that would otherwise overflow.
+
+              Hidden via a wrapper, not a `hidden` class on the button itself:
+              CtaLink's base already sets `inline-flex`, and the two display
+              utilities collide unpredictably depending on CSS order. */}
+          <span className="hidden sm:block">
+            <CtaLink
+              href="/narucivanje"
+              className="px-3.5 text-[0.8125rem] sm:px-5 sm:text-[0.9375rem]"
+            >
+              {BOOK_LABEL[locale]}
+            </CtaLink>
+          </span>
+          <MobileNav
+            locale={locale}
+            items={NAV[locale].map((i) => ({ label: i.label, href: i.href }))}
+            secondary={secondary}
+          />
         </div>
       </div>
     </header>
@@ -169,12 +203,12 @@ export function SiteFooter({ locale = 'hr' }: { locale?: Locale }) {
   const column = (title: string, links: [string, string][]) => (
     <div>
       <h2 className="t-caption mb-5 text-brass-500">{title}</h2>
-      <ul className="space-y-2.5">
+      <ul>
         {links.map(([label, href]) => (
           <li key={href}>
             <Link
               href={href}
-              className="text-[0.9375rem] text-paper-200 transition-colors hover:text-paper-000"
+              className="flex min-h-[44px] items-center text-[0.9375rem] text-paper-200 transition-colors hover:text-paper-000"
             >
               {label}
             </Link>

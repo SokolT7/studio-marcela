@@ -115,7 +115,7 @@ export default async function BookingServiceStep({
             </ul>
             <a
               href={`tel:${location.phoneHref}`}
-              className="mt-5 inline-block text-[0.9375rem] font-medium text-clay-600 underline underline-offset-4"
+              className="mt-3 inline-flex min-h-[44px] items-center text-[0.9375rem] font-medium text-clay-600 underline underline-offset-4"
             >
               Nazovite {location.displayName} — {location.phone}
             </a>

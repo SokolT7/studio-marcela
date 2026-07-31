@@ -91,7 +91,7 @@ export default function ServicesIndexPage() {
           </p>
           <Link
             href="/cjenik"
-            className="mt-5 inline-block font-medium text-clay-600 underline underline-offset-4"
+            className="mt-4 inline-flex min-h-[44px] items-center font-medium text-clay-600 underline underline-offset-4"
           >
             Pogledaj cjenik →
           </Link>

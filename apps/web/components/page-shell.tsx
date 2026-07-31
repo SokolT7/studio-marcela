@@ -22,23 +22,35 @@ export function PageHeader({
   breadcrumb?: { label: string; href?: string }[];
 }) {
   return (
-    <Section tone="paper" className="!pb-0">
+    // Lighter top padding than a full section: on a phone, 96px of empty space
+    // above a breadcrumb pushes the heading below the fold. Bottom padding
+    // stays at zero at every width — the following section supplies its own,
+    // and stacking the two leaves a dead gap under the lead paragraph.
+    <Section tone="paper" className="!pb-0 !pt-8 md:!pt-14 lg:!pt-24">
       {breadcrumb && breadcrumb.length > 0 && (
-        <nav aria-label="Staza" className="mb-8 text-[0.8125rem] text-ink-500">
-          <Link href="/" className="hover:text-ink-900">
+        <nav
+          aria-label="Staza"
+          className="-mt-2 mb-6 flex flex-wrap items-center text-[0.8125rem] text-ink-500"
+        >
+          <Link href="/" className="flex min-h-[44px] items-center pr-1 hover:text-ink-900">
             Početna
           </Link>
           {breadcrumb.map((crumb) => (
-            <span key={crumb.label}>
-              <span className="mx-2 text-ink-300" aria-hidden="true">
+            <span key={crumb.label} className="flex items-center">
+              <span className="text-ink-300" aria-hidden="true">
                 /
               </span>
               {crumb.href ? (
-                <Link href={crumb.href} className="hover:text-ink-900">
+                <Link
+                  href={crumb.href}
+                  className="inline-flex min-h-[44px] items-center px-1 hover:text-ink-900"
+                >
                   {crumb.label}
                 </Link>
               ) : (
-                <span className="text-ink-900">{crumb.label}</span>
+                <span className="inline-flex min-h-[44px] items-center px-1 text-ink-900">
+                  {crumb.label}
+                </span>
               )}
             </span>
           ))}

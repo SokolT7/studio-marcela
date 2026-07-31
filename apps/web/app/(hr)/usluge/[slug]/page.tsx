@@ -108,16 +108,16 @@ export default async function ServicePage({
 
       {/* ── Hero: price and duration above the fold ─────────────── */}
       <Section tone="paper">
-        <nav aria-label="Staza" className="mb-8 text-[0.8125rem] text-ink-500">
-          <Link href="/" className="hover:text-ink-900">
+        <nav aria-label="Staza" className="mb-4 flex flex-wrap items-center text-[0.8125rem] text-ink-500">
+          <Link href="/" className="flex min-h-[44px] items-center pr-1 hover:text-ink-900">
             Početna
           </Link>
-          <span className="mx-2 text-ink-300">/</span>
-          <Link href="/usluge" className="hover:text-ink-900">
+          <span className="px-1 text-ink-300" aria-hidden="true">/</span>
+          <Link href="/usluge" className="flex min-h-[44px] items-center px-1 hover:text-ink-900">
             Usluge
           </Link>
-          <span className="mx-2 text-ink-300">/</span>
-          <span className="text-ink-900">{service.nameHr}</span>
+          <span className="px-1 text-ink-300" aria-hidden="true">/</span>
+          <span className="flex min-h-[44px] items-center px-1 text-ink-900">{service.nameHr}</span>
         </nav>
 
         <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:gap-16">

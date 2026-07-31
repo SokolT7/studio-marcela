@@ -271,7 +271,7 @@ export default async function BookingConfirmStep({
 
             <Link
               href={`/narucivanje/${locationSlug}/${serviceSlug}`}
-              className="mt-4 block text-center text-[0.875rem] text-clay-600 underline underline-offset-4"
+              className="mt-2 flex min-h-[44px] items-center justify-center text-[0.875rem] text-clay-600 underline underline-offset-4"
             >
               Promijeni termin
             </Link>
@@ -353,13 +353,13 @@ function Consent({
   required?: boolean;
 }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex min-h-[44px] items-start gap-3 py-1">
       <input
         id={id}
         name={id}
         type="checkbox"
         required={required}
-        className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-clay-600)]"
+        className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--color-clay-600)]"
       />
       <label htmlFor={id} className="text-[0.875rem] text-ink-700">
         {label}
