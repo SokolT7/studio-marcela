@@ -40,11 +40,11 @@ export default async function BookingServiceStep({
 
   const now = Date.now();
   // Only services the engine can actually schedule are offered here.
-  const bookable = [...PACKAGES, ...SERVICES].filter((s) =>
-    Boolean(BOOKABLE_SERVICES[s.slug]),
+  const bookable = [...PACKAGES, ...SERVICES].filter(
+    (s) => s.bookable && Boolean(BOOKABLE_SERVICES[s.slug]),
   );
   const unavailable = [...PACKAGES, ...SERVICES].filter(
-    (s) => !BOOKABLE_SERVICES[s.slug],
+    (s) => !s.bookable || !BOOKABLE_SERVICES[s.slug],
   );
 
   return (

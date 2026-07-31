@@ -74,7 +74,9 @@ export default async function LocationPage({
   if (!location) notFound();
 
   const nearby = nearbyLocations(slug);
-  const offered = SERVICES.slice(0, 6);
+  // Only offer services the engine can actually schedule. Linking an
+  // unbookable service into the booking flow produced a 404 for AirTouch.
+  const offered = SERVICES.filter((s) => s.bookable).slice(0, 6);
 
   /** This salon's own structured data — its address, its geo, its phone. */
   const schema = {
