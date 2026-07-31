@@ -469,7 +469,8 @@ These are load-bearing for SEO, not decorative.
 ## 6. Photography and asset specification
 
 > This section is the photographer's brief. Reference images live in
-> `docs/photo-references/` — see the README there. **The references are direction, not
+> `apps/web/public/ref/`, described in `docs/photo-references/README.md`. **The references
+> are direction, not
 > content. Every reference is replaced by an original photograph of a real Studio Marcela
 > salon, stylist, or client.**
 
@@ -524,7 +525,8 @@ impossible, shoot both.
 
 ### 6.4 Shot list
 
-Every image slot on the site. `Ref` names a file in `docs/photo-references/`.
+Every image slot on the site. `Ref` names a file in `apps/web/public/ref/`, catalogued in
+`docs/photo-references/README.md`.
 
 #### Homepage
 
@@ -614,9 +616,13 @@ and it feeds §7.9's filterable gallery, where every image carries a "book this 
 
 Between build and shoot, the site is developed against the reference library with a visible
 `REFERENCE — NOT FOR PRODUCTION` watermark applied by the build in non-production
-environments. A CI check fails the production build if any asset path resolves into
-`docs/photo-references/`. This makes it structurally impossible to ship stock photography by
-accident.
+environments. A CI check fails the production build if any asset path still resolves into
+`/ref/`. This makes it structurally impossible to ship stock photography by accident.
+
+**Note on where these live.** The placeholders sit in `apps/web/public/ref/` and are committed,
+because the app serves them and anything excluded from the repository is absent from a deploy.
+An earlier attempt to keep them out of git and regenerate them at build time shipped a
+production site with every image broken — assets the app serves belong in version control.
 
 ---
 

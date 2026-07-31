@@ -37,7 +37,7 @@ npm run build
 apps/web              Next.js 15 — public site and (later) dashboard
 packages/scheduling   Availability and pricing engine — pure logic, no I/O
 packages/db           Prisma schema and migrations
-docs/photo-references Photography brief and reference library
+docs/photo-references Photography brief (images live in apps/web/public/ref)
 ```
 
 `packages/scheduling` is deliberately separate and dependency-free. It is the highest-risk
@@ -86,9 +86,10 @@ The rest are tracked as `[CLIENT]` and `[VERIFY]` markers in the plan (§25).
 
 ### Placeholders
 
-- Every photograph carries a `REFERENCE — NOT FOR PRODUCTION` watermark. They are Unsplash
-  images used for art direction only and **none may ship** — the whole premise of the redesign
-  is that the site shows the real studio.
+- Every photograph carries a `REFERENCE — NOT FOR PRODUCTION` watermark. They live in
+  `apps/web/public/ref/`, are Unsplash images used for art direction only, and **none may
+  ship** — the whole premise of the redesign is that the site shows the real studio. The
+  brief describing each one is [`docs/photo-references/README.md`](./docs/photo-references/README.md).
 - [`apps/web/lib/seed.ts`](./apps/web/lib/seed.ts) is invented staff and shifts. It matches the
   Prisma schema exactly, so replacing it with real queries is substitution, not a rewrite.
 

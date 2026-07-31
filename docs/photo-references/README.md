@@ -7,6 +7,13 @@ Studio Marcela work.
 They exist so the photographer, the client and the build team are all looking at the same
 thing when we say "warm interior with window light" or "colour dimension close-up".
 
+## Where the files are
+
+The images live in **[`apps/web/public/ref/`](../../apps/web/public/ref/)**, not in this
+folder. They are served by the site as placeholders, so they have to sit in the app's public
+directory to survive a deploy — one copy, in the place that needs it. This document is the
+brief that describes them.
+
 ## How to use them
 
 Each image slot in `IMPLEMENTATION_PLAN.md` §6 names one of these files. The written brief
@@ -24,7 +31,7 @@ art-direction purposes only.
 generic stock photography on a site whose entire strategic premise is that it shows the real
 studio — the exact failure we are fixing.
 
-## What's in the set (26 files)
+## What's in the set (26 files, in `apps/web/public/ref/`)
 
 | File | What it actually shows | Use as reference for |
 |---|---|---|

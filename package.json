@@ -16,10 +16,7 @@
     "test": "npm run test --workspaces --if-present",
     "test:coverage": "npm run test:coverage --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
-    "sync:refs": "node scripts/sync-reference-images.mjs",
-    "predev": "npm run sync:refs",
-    "prebuild": "npm run sync:refs"
+    "lint": "npm run lint --workspaces --if-present"
   },
   "devDependencies": {
     "typescript": "^5.7.2",
