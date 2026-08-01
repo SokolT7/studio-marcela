@@ -31,6 +31,7 @@ const NAV: NavItem[] = [
   { href: '/app/raspored-rada', label: 'Raspored rada', roles: ['OWNER', 'MANAGER'] },
   { href: '/app/odsutnost', label: 'Odsutnost', roles: ['OWNER', 'MANAGER', 'STYLIST'] },
   { href: '/app/izvjestaji', label: 'Izvještaji', roles: ['OWNER', 'MANAGER'] },
+  { href: '/app/postavljanje', label: 'Postavljanje', roles: ['OWNER'] },
 ];
 
 export function DashboardShell({ children }: { children: ReactNode }) {

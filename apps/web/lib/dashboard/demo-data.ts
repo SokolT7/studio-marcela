@@ -119,7 +119,7 @@ export const DEMO_CLIENTS: DemoClient[] = [
         ratio: '1:1.5',
         processingMin: 35,
         resultNote: 'Izrast pokriven, ton hladan kako je tražila.',
-        nextTimeNote: 'Sljedeći put 5 g manje 9.1 — bilo je na granici presvijetlog.',
+        nextTimeNote: '5 g manje 9.1 — zadnji put je bilo na granici presvijetlog.',
       },
       {
         id: 'f-marina-2',
